@@ -1,10 +1,11 @@
-import React from "react";
-import css from "./App.module.css";
+import React from 'react';
+import css from './App.module.css';
+import Form from '../Form';
 
 function App() {
   return (
     <div className={css.container}>
-      <h1>Happy Hacking!</h1>
+      <Form />
     </div>
   );
 }
