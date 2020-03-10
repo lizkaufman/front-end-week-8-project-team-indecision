@@ -5,6 +5,7 @@ import DatePickerInput from '../DatePickerInput/index';
 import TextAreaInput from '../TextAreaInput/index';
 //import FileUploader from '../FileUploader/index';
 //import DatePicker from 'react-date-picker';
+import SuccessMessage from '../SuccessMessage/index';
 
 //------------PLAN-----------------------------
 
@@ -45,6 +46,7 @@ import TextAreaInput from '../TextAreaInput/index';
 //--------------CODE------------------------------
 
 function Form() {
+  //State to manage form content:
   const [form, setForm] = useState({
     fName: '',
     lName: '',
@@ -57,6 +59,9 @@ function Form() {
     // treePic: './sampletree.jpg'
   });
 
+  const [showSuccess, setShowSuccess] = useState(false);
+
+  //Function to handle form entry:
   function handleChange(event) {
     const inputValue = event.target.value;
     const inputName = event.target.name;
@@ -75,6 +80,7 @@ function Form() {
     console.log(form[inputName]);
   }
 
+  //Function to handle form submission:
   function handleSubmit(event) {
     event.preventDefault();
     console.log(`You've pressed submit!`);
@@ -91,8 +97,9 @@ function Form() {
             'datePlanted': `${form.datePlanted}`,
             'comment': `${form.comment}`
         }
-    }).then(res => res.json()).then(data=>console.log(data));
+    }).then(res => res.json()).then(data=>console.log(data)).catch((error) => {console.error('Error: Failed to fetch.')});
     */
+    setShowSuccess(true);
   }
 
   return (
@@ -156,6 +163,8 @@ function Form() {
         value={form.comment}
         handleChange={handleChange}
       />
+      <br />
+      <SuccessMessage showSuccess={showSuccess} />
       <br />
       <input type="submit" value="submit" />
     </form>
