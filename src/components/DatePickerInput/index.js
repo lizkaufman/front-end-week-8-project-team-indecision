@@ -1,6 +1,6 @@
 import React from 'react';
 
-function DatePicker({ placeholder, name, value, handleChange }) {
+function DatePickerInput({ placeholder, name, value, handleChange }) {
   return (
     <input
       placeholder={placeholder}
@@ -12,4 +12,4 @@ function DatePicker({ placeholder, name, value, handleChange }) {
   );
 }
 
-export default DatePicker;
+export default DatePickerInput;

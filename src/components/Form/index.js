@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import TextInputField from '../TextInputField/index';
 import DropdownInputField from '../DropdownInputField/index';
-import DatePicker from '../DatePicker/index';
+import DatePickerInput from '../DatePickerInput/index';
 import TextAreaInput from '../TextAreaInput/index';
-import FileUploader from '../FileUploader/index';
+//import FileUploader from '../FileUploader/index';
+//import DatePicker from 'react-date-picker';
 
 //------------PLAN-----------------------------
 
@@ -57,21 +58,32 @@ function Form() {
     email: '',
     phone: '',
     species: '',
-    datePlanted: null,
+    datePlanted: new Date(),
     comment: ''
     // treePic: './sampletree.jpg'
   });
 
   function handleChange(event) {
     const inputValue = event.target.value;
-    const name = event.target.name;
-    setForm({ [name]: inputValue });
-    console.log(form[name]);
+    const inputName = event.target.name;
+    setForm({
+      fName: inputName === 'fName' ? inputValue : form.fName,
+      lName: inputName === 'lName' ? inputValue : form.lName,
+      org: inputName === 'org' ? inputValue : form.org,
+      email: inputName === 'email' ? inputValue : form.email,
+      phone: inputName === 'phone' ? inputValue : form.phone,
+      species: inputName === 'species' ? inputValue : form.species,
+      datePlanted: inputName === 'datePlanted' ? inputValue : form.datePlanted,
+      comment: inputName === 'comment' ? inputValue : form.comment
+    });
+    console.log(inputName);
+    console.log(inputValue);
+    console.log(form[inputName]);
   }
 
   return (
     <form>
-      <label for="fName">First name:</label>
+      <label htmlFor="fName">First name:</label>
       <TextInputField
         placeholder={'Optional'}
         name={'fName'}
@@ -79,7 +91,7 @@ function Form() {
         handleChange={handleChange}
       />
 
-      <label for="lName">Last Name:</label>
+      <label htmlFor="lName">Last Name:</label>
       <TextInputField
         placeholder={'Optional'}
         name={'lName'}
@@ -87,7 +99,7 @@ function Form() {
         handleChange={handleChange}
       />
 
-      <label for="org">Organisation:</label>
+      <label htmlFor="org">Organisation:</label>
       <TextInputField
         placeholder={'Optional'}
         name={'org'}
@@ -95,35 +107,35 @@ function Form() {
         handleChange={handleChange}
       />
 
-      <label for="email">Email:</label>
+      <label htmlFor="email">Email:</label>
       <TextInputField
         name={'email'}
         value={form.email}
         handleChange={handleChange}
       />
 
-      <label for="phone">Telephone number:</label>
+      <label htmlFor="phone">Telephone number:</label>
       <TextInputField
         name={'phone'}
         value={form.phone}
         handleChange={handleChange}
       />
 
-      <label for="species">Tree species:</label>
+      <label htmlFor="species">Tree species:</label>
       <DropdownInputField
         name={'species'}
         value={form.species}
         handleChange={handleChange}
       />
 
-      <label for="datePlanted">Date planted:</label>
-      <DatePicker
+      <label htmlFor="datePlanted">Date planted:</label>
+      <DatePickerInput
         name={'datePlanted'}
         value={form.datePlanted}
         handleChange={handleChange}
       />
 
-      <label for="comment">Details:</label>
+      <label htmlFor="comment">Details:</label>
       <TextAreaInput
         placeholder={'More details about your tree request'}
         name={'comment'}
@@ -146,4 +158,26 @@ FOR FILE UPLOAD:
         value={form.treePic}
         handleChange={handleChange}
       />
+
+USING DATE PICKER COMPONENT IMPORTED:
+            <DatePicker
+        name={'datePlanted'}
+        value={form.datePlanted}
+        onChange={value => {
+          setForm({ datePlanted: value });
+          console.log(form.datePlanted);
+        }}
+      />
+
+      EXPERIMENTING WITH SETSTATE OF FORM: 
+          setForm(`{
+        fName: ${event.target.fName},
+        lName: ${event.target.lName},
+        org: ${event.target.org},
+        email: ${event.target.email},
+        phone: ${event.target.phone},
+        species: ${event.target.species},
+        datePlanted: ${event.target.datePlanted},
+        comment: ${event.target.comment}
+      }`);
 */
