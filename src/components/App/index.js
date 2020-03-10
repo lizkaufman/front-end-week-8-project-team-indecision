@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import css from "./App.module.css";
 import { Map, Marker, Popup, TileLayer } from "react-leaflet";
 import ReactLeafletSearch from "react-leaflet-search";
@@ -115,9 +115,28 @@ const greenTreeMarker = new L.icon({
 });
 
 function App() {
+  const [trees, setTrees] = useState(dummyData);
+  function handleClick(e) {
+    const { lat, lng } = e.latlng;
+    const newTree = {
+      lat: lat,
+      lon: lng,
+      species: "larch",
+      status: "planted",
+      photo:
+        "https://upload.wikimedia.org/wikipedia/commons/e/eb/Ash_Tree_-_geograph.org.uk_-_590710.jpg"
+    };
+    setTrees([...trees, newTree]);
+  }
   const bhamPosition = [52.4862, -1.8904];
   const map = (
-    <Map center={bhamPosition} zoom={8} maxZoom={15} minZoom={7}>
+    <Map
+      center={bhamPosition}
+      zoom={8}
+      maxZoom={15}
+      minZoom={7}
+      onclick={handleClick}
+    >
       <ReactLeafletSearch
         position="topleft"
         provider="OpenStreetMap"
@@ -130,7 +149,7 @@ function App() {
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
       />
-      {dummyData.map(x => {
+      {trees.map(x => {
         return (
           <Marker
             icon={x.status === "planted" ? greenTreeMarker : redTreeMarker}
