@@ -4,9 +4,14 @@ import { Map, Marker, Popup, TileLayer } from "react-leaflet";
 import ReactLeafletSearch from "react-leaflet-search";
 import L from "leaflet";
 import Form from "../Form";
-import { TwitterTimelineEmbed } from "react-twitter-embed";
+import {
+  TwitterTimelineEmbed,
+  TwitterHashtagButton
+} from "react-twitter-embed";
 
+// Set global vars
 let allowTreeAdd = false;
+const bhamPosition = [52.4862, -1.8904];
 
 const dummyData = [
   {
@@ -138,9 +143,10 @@ function App() {
     };
     allowTreeAdd && setTrees([...trees, newTree]);
   }
-  const bhamPosition = [52.4862, -1.8904];
+
   const map = (
     <Map
+      className={css.mapStyle}
       center={bhamPosition}
       zoom={8}
       maxZoom={15}
@@ -180,14 +186,23 @@ function App() {
   return (
     <div className={css.container}>
       {map}
-      <h1>Happy mapping!</h1>
-      <button onClick={toggleAllowTreeAdd}>Add tree</button>
-      <Form />
-      <TwitterTimelineEmbed
-        sourceType="profile"
-        screenName="WestMids_CA"
-        options={{ height: "600px", width: "300px" }}
-      />
+      <header>West Midlands Combined Authority Virtual Forest</header>
+      <button className={css.addTreeButton} onClick={toggleAllowTreeAdd}>
+        Add tree
+      </button>
+      <div className={css.treeEntryForm}>
+        <Form />
+      </div>
+      <div className={css.twitterFeed}>
+        <TwitterTimelineEmbed
+          sourceType="profile"
+          screenName="WestMids_CA"
+          options={{ width: "600px", height: "900px" }}
+        />
+      </div>
+      <div className={css.twitterHashTagButton}>
+        <TwitterHashtagButton tag={"NeedsATree"} />
+      </div>
     </div>
   );
 }
