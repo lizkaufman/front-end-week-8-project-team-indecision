@@ -4,24 +4,100 @@ import { Map, Marker, Popup, TileLayer } from "react-leaflet";
 import L from "leaflet";
 
 const dummyData = [
-  { lat: 52.4862, lon: -1.8904, species: "birch", status: "requested" },
-  { lat: 52.862, lon: -1.904, species: "larch", status: "planted" },
-  { lat: 52.62, lon: -1.04, species: "elm", status: "requested" },
-  { lat: 52.2, lon: -1.4, species: "ash", status: "planted" },
-  { lat: 52.4862, lon: -1.8904, species: "birch", status: "requested" },
-  { lat: 52.862, lon: -1.8904, species: "larch", status: "planted" },
-  { lat: 52.62, lon: -1.8904, species: "elm", status: "requested" },
-  { lat: 52.2, lon: -1.8904, species: "ash", status: "requested" },
-  { lat: 52.4862, lon: -1.8904, species: "birch", status: "planted" },
-  { lat: 52.4862, lon: -1.904, species: "larch", status: "planted" },
-  { lat: 52.4862, lon: -1.04, species: "elm", status: "requested" },
-  { lat: 52.4862, lon: -1.4, species: "ash", status: "planted" }
+  {
+    lat: 52.862,
+    lon: -1.904,
+    species: "larch",
+    status: "planted",
+    photo:
+      "https://upload.wikimedia.org/wikipedia/commons/e/eb/Ash_Tree_-_geograph.org.uk_-_590710.jpg"
+  },
+  {
+    lat: 52.62,
+    lon: -1.04,
+    species: "elm",
+    status: "requested",
+    photo:
+      "https://upload.wikimedia.org/wikipedia/commons/e/eb/Ash_Tree_-_geograph.org.uk_-_590710.jpg"
+  },
+  {
+    lat: 52.2,
+    lon: -1.4,
+    species: "ash",
+    status: "planted",
+    photo:
+      "https://upload.wikimedia.org/wikipedia/commons/e/eb/Ash_Tree_-_geograph.org.uk_-_590710.jpg"
+  },
+  {
+    lat: 52.4862,
+    lon: -1.8904,
+    species: "birch",
+    status: "requested",
+    photo:
+      "https://upload.wikimedia.org/wikipedia/commons/e/eb/Ash_Tree_-_geograph.org.uk_-_590710.jpg"
+  },
+  {
+    lat: 52.862,
+    lon: -1.8904,
+    species: "larch",
+    status: "planted",
+    photo:
+      "https://upload.wikimedia.org/wikipedia/commons/e/eb/Ash_Tree_-_geograph.org.uk_-_590710.jpg"
+  },
+  {
+    lat: 52.62,
+    lon: -1.8904,
+    species: "elm",
+    status: "requested",
+    photo:
+      "https://upload.wikimedia.org/wikipedia/commons/e/eb/Ash_Tree_-_geograph.org.uk_-_590710.jpg"
+  },
+  {
+    lat: 52.2,
+    lon: -1.8904,
+    species: "ash",
+    status: "requested",
+    photo:
+      "https://upload.wikimedia.org/wikipedia/commons/e/eb/Ash_Tree_-_geograph.org.uk_-_590710.jpg"
+  },
+  {
+    lat: 52.4862,
+    lon: -1.8904,
+    species: "birch",
+    status: "planted",
+    photo:
+      "https://upload.wikimedia.org/wikipedia/commons/e/eb/Ash_Tree_-_geograph.org.uk_-_590710.jpg"
+  },
+  {
+    lat: 52.4862,
+    lon: -1.904,
+    species: "larch",
+    status: "planted",
+    photo:
+      "https://upload.wikimedia.org/wikipedia/commons/e/eb/Ash_Tree_-_geograph.org.uk_-_590710.jpg"
+  },
+  {
+    lat: 52.4862,
+    lon: -1.04,
+    species: "elm",
+    status: "requested",
+    photo:
+      "https://upload.wikimedia.org/wikipedia/commons/e/eb/Ash_Tree_-_geograph.org.uk_-_590710.jpg"
+  },
+  {
+    lat: 52.4862,
+    lon: -1.4,
+    species: "ash",
+    status: "planted",
+    photo:
+      "https://upload.wikimedia.org/wikipedia/commons/e/eb/Ash_Tree_-_geograph.org.uk_-_590710.jpg"
+  }
 ];
 
 const redTreeMarker = new L.icon({
   iconUrl: require("../../img/icon_red.png"),
-  iconAnchor: null,
-  popupAnchor: null,
+  iconAnchor: [0, 0],
+  popupAnchor: [0, 0],
   shadowUrl: null,
   shadowSize: null,
   shadowAnchor: null,
@@ -29,8 +105,8 @@ const redTreeMarker = new L.icon({
 });
 const greenTreeMarker = new L.icon({
   iconUrl: require("../../img/icon_green.png"),
-  iconAnchor: null,
-  popupAnchor: null,
+  iconAnchor: [0, 0],
+  popupAnchor: [0, 0],
   shadowUrl: null,
   shadowSize: null,
   shadowAnchor: null,
@@ -50,10 +126,12 @@ function App() {
           <Marker
             icon={x.status === "planted" ? greenTreeMarker : redTreeMarker}
             position={[x.lat, x.lon]}
+            key={x.status + x.lat + x.lon + x.species}
           >
             <Popup>
               A pretty CSS3 popup {x.species}.<br />
-              Easily customizable.
+              Easily customizable. <br />
+              <img width="100px" src={x.photo} alt="A West Midlands tree." />
             </Popup>
           </Marker>
         );
