@@ -3,6 +3,7 @@ import TextInputField from '../TextInputField/index';
 import DropdownInputField from '../DropdownInputField/index';
 import DatePicker from '../DatePicker/index';
 import TextAreaInput from '../TextAreaInput/index';
+import FileUploader from '../FileUploader/index';
 
 //------------PLAN-----------------------------
 
@@ -30,7 +31,11 @@ import TextAreaInput from '../TextAreaInput/index';
 
 //TODO: Correctly label in line with accessibility guidelines for screen readers ✅
 
-//TODO: Need states to manage each field
+//TODO: Need states to manage each field ✅
+
+//TODO: Need handleChange function that changes state for each field based on onChange event
+
+//TODO: Need handleSubmit function to do the post request when submit is pressed (onSubmit event), taking in the values from the input fields' states
 
 //--------------CODE------------------------------
 
@@ -45,44 +50,72 @@ function Form() {
   const [comment, setComment] = useState('');
   const [treePic, setTreePic] = useState('');
 
+  function handleChange(event, setState) {
+    setState(event.target.value);
+  }
+
   return (
     <form>
       <label for="fName">First name:</label>
-      <TextInputField placeholder={'Optional'} name={'fName'} value={} />
+      <TextInputField
+        placeholder={'Optional'}
+        name={'fName'}
+        value={}
+        handleChange={handleChange}
+      />
 
       <label for="lName">Last Name:</label>
-      <TextInputField placeholder={'Optional'} name={'lName'} value={} />
+      <TextInputField
+        placeholder={'Optional'}
+        name={'lName'}
+        value={}
+        handleChange={handleChange}
+      />
 
       <label for="org">Organisation:</label>
-      <TextInputField placeholder={'Optional'} name={'org'} value={} />
+      <TextInputField
+        placeholder={'Optional'}
+        name={'org'}
+        value={}
+        handleChange={handleChange}
+      />
 
       <label for="email">Email:</label>
-      <TextInputField placeholder={} name={'email'} value={} />
+      <TextInputField
+        placeholder={}
+        name={'email'}
+        value={}
+        handleChange={handleChange}
+      />
 
       <label for="phone">Telephone number:</label>
-      <TextInputField placeholder={} name={'phone'} value={} />
+      <TextInputField
+        placeholder={}
+        name={'phone'}
+        value={}
+        handleChange={handleChange}
+      />
 
       <label for="species">Tree species:</label>
-      <DropdownInputField name={'species'} value={} />
+      <DropdownInputField
+        name={'species'}
+        value={}
+        handleChange={handleChange}
+      />
 
       <label for="datePlanted">Date planted:</label>
-      <DatePicker name={'datePlanted'} value={} />
+      <DatePicker name={'datePlanted'} value={} handleChange={handleChange} />
 
       <label for="comment">Details:</label>
       <TextAreaInput
         placeholder={'More details about your tree request'}
         name={'comment'}
         value={}
+        handleChange={handleChange}
       />
 
       <label for="treePic">Upload photo:</label>
-      <TextInputField
-        placeholder={
-          'This will be replaced by snazzy image uploader React component!'
-        }
-        name={'treePic'}
-        value={}
-      />
+      <FileUploader name={'treePic'} value={} handleChange={handleChange} />
 
       <input type="submit" value="submit" />
     </form>

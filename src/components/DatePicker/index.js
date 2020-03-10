@@ -7,6 +7,7 @@ function DatePicker({ placeholder, name, value }) {
       name={name}
       value={value}
       type="date"
+      onChange={handleChange}
     ></input>
   );
 }

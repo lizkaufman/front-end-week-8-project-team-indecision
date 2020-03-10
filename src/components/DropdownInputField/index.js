@@ -35,7 +35,7 @@ const treeSpecies = [
 
 function DropdownInputField({ name, value }) {
   return (
-    <select name={name} value={value}>
+    <select name={name} value={value} onChange={handleChange}>
       {treeSpecies.map(species => {
         <option value={species}>`${species}`</option>;
       })}
