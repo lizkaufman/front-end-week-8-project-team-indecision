@@ -1,6 +1,6 @@
 import React from 'react';
 
-function DatePicker({ placeholder, name, value }) {
+function DatePicker({ placeholder, name, value, handleChange }) {
   return (
     <input
       placeholder={placeholder}

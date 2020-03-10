@@ -40,18 +40,33 @@ import FileUploader from '../FileUploader/index';
 //--------------CODE------------------------------
 
 function Form() {
-  const [fName, setFName] = useState('');
-  const [lName, setLName] = useState('');
-  const [org, setOrg] = useState('');
-  const [email, setEmail] = useState('');
-  const [phone, setPhone] = useState('');
-  const [species, setSpecies] = useState('');
-  const [datePlanted, setDatePlanted] = useState('');
-  const [comment, setComment] = useState('');
-  const [treePic, setTreePic] = useState('');
+  //   const [fName, setFName] = useState('');
+  //   const [lName, setLName] = useState('');
+  //   const [org, setOrg] = useState('');
+  //   const [email, setEmail] = useState('');
+  //   const [phone, setPhone] = useState('');
+  //   const [species, setSpecies] = useState('');
+  //   const [datePlanted, setDatePlanted] = useState('');
+  //   const [comment, setComment] = useState('');
+  //   const [treePic, setTreePic] = useState('');
 
-  function handleChange(event, setState) {
-    setState(event.target.value);
+  const [form, setForm] = useState({
+    fName: '',
+    lName: '',
+    org: '',
+    email: '',
+    phone: '',
+    species: '',
+    datePlanted: null,
+    comment: ''
+    // treePic: './sampletree.jpg'
+  });
+
+  function handleChange(event) {
+    const inputValue = event.target.value;
+    const name = event.target.name;
+    setForm({ [name]: inputValue });
+    console.log(form[name]);
   }
 
   return (
@@ -60,7 +75,7 @@ function Form() {
       <TextInputField
         placeholder={'Optional'}
         name={'fName'}
-        value={}
+        value={form.fName}
         handleChange={handleChange}
       />
 
@@ -68,7 +83,7 @@ function Form() {
       <TextInputField
         placeholder={'Optional'}
         name={'lName'}
-        value={}
+        value={form.lName}
         handleChange={handleChange}
       />
 
@@ -76,46 +91,45 @@ function Form() {
       <TextInputField
         placeholder={'Optional'}
         name={'org'}
-        value={}
+        value={form.org}
         handleChange={handleChange}
       />
 
       <label for="email">Email:</label>
       <TextInputField
-        placeholder={}
         name={'email'}
-        value={}
+        value={form.email}
         handleChange={handleChange}
       />
 
       <label for="phone">Telephone number:</label>
       <TextInputField
-        placeholder={}
         name={'phone'}
-        value={}
+        value={form.phone}
         handleChange={handleChange}
       />
 
       <label for="species">Tree species:</label>
       <DropdownInputField
         name={'species'}
-        value={}
+        value={form.species}
         handleChange={handleChange}
       />
 
       <label for="datePlanted">Date planted:</label>
-      <DatePicker name={'datePlanted'} value={} handleChange={handleChange} />
+      <DatePicker
+        name={'datePlanted'}
+        value={form.datePlanted}
+        handleChange={handleChange}
+      />
 
       <label for="comment">Details:</label>
       <TextAreaInput
         placeholder={'More details about your tree request'}
         name={'comment'}
-        value={}
+        value={form.comment}
         handleChange={handleChange}
       />
-
-      <label for="treePic">Upload photo:</label>
-      <FileUploader name={'treePic'} value={} handleChange={handleChange} />
 
       <input type="submit" value="submit" />
     </form>
@@ -123,3 +137,13 @@ function Form() {
 }
 
 export default Form;
+
+/*
+FOR FILE UPLOAD: 
+      <label for="treePic">Upload photo:</label>
+      <FileUploader
+        name={'treePic'}
+        value={form.treePic}
+        handleChange={handleChange}
+      />
+*/
