@@ -5,6 +5,7 @@ import DatePickerInput from '../DatePickerInput/index';
 import TextAreaInput from '../TextAreaInput/index';
 //import FileUploader from '../FileUploader/index';
 //import DatePicker from 'react-date-picker';
+import SuccessMessage from '../SuccessMessage/index';
 
 //------------PLAN-----------------------------
 
@@ -26,7 +27,7 @@ import TextAreaInput from '../TextAreaInput/index';
 -Comment (for details about the requested area)
 */
 
-//TODO: Need conditional rendering - if person selects planter, only display planter fields, and for requesters, only display requester fields
+//TODO: Need conditional rendering - if person selects planter, only display planter fields, and for requesters, only display requester fields -> Manage with state at App level (with buttons)!! Then pass state down to Form as props and do the conditional rendering based on that.
 
 //TODO: Need a place for the user to upload a photo!
 
@@ -34,23 +35,18 @@ import TextAreaInput from '../TextAreaInput/index';
 
 //TODO: Need states to manage each field ✅
 
-//TODO: Need handleChange function that changes state for each field based on onChange event
+//TODO: Need handleChange function that changes state for each field based on onChange event ✅
 
-//TODO: Need handleSubmit function to do the post request when submit is pressed (onSubmit event), taking in the values from the input fields' states
+//TODO: Need handleSubmit function to do the post request when submit is pressed (onSubmit event), taking in the values from the input fields' states ✅
+
+//TODO: Connect the handleSubmit's fetch to the database using the URL
+
+//TODO: Show a success message once the form is submitted
 
 //--------------CODE------------------------------
 
 function Form() {
-  //   const [fName, setFName] = useState('');
-  //   const [lName, setLName] = useState('');
-  //   const [org, setOrg] = useState('');
-  //   const [email, setEmail] = useState('');
-  //   const [phone, setPhone] = useState('');
-  //   const [species, setSpecies] = useState('');
-  //   const [datePlanted, setDatePlanted] = useState('');
-  //   const [comment, setComment] = useState('');
-  //   const [treePic, setTreePic] = useState('');
-
+  //State to manage form content:
   const [form, setForm] = useState({
     fName: '',
     lName: '',
@@ -63,6 +59,9 @@ function Form() {
     // treePic: './sampletree.jpg'
   });
 
+  const [showSuccess, setShowSuccess] = useState(false);
+
+  //Function to handle form entry:
   function handleChange(event) {
     const inputValue = event.target.value;
     const inputName = event.target.name;
@@ -81,8 +80,30 @@ function Form() {
     console.log(form[inputName]);
   }
 
+  //Function to handle form submission:
+  function handleSubmit(event) {
+    event.preventDefault();
+    console.log(`You've pressed submit!`);
+    /*TODO: DRAFT OF FETCH TO IMPLEMENT ONCE DATABASE IS READY:
+    fetch('linktoserver', {
+        method: 'post',
+        body: {
+            'fName': `${form.fName}`,
+            'lName': `${form.lName}`,
+            'org': `${form.org}`,
+            'email': `${form.email}`,
+            'phone': `${form.phone}`,
+            'species': `${form.species}`,
+            'datePlanted': `${form.datePlanted}`,
+            'comment': `${form.comment}`
+        }
+    }).then(res => res.json()).then(data=>console.log(data)).catch((error) => {console.error('Error: Failed to fetch.')});
+    */
+    setShowSuccess(true);
+  }
+
   return (
-    <form>
+    <form onSubmit={handleSubmit}>
       <label htmlFor="fName">First name:</label>
       <TextInputField
         placeholder={'Optional'}
@@ -90,7 +111,7 @@ function Form() {
         value={form.fName}
         handleChange={handleChange}
       />
-
+      <br />
       <label htmlFor="lName">Last Name:</label>
       <TextInputField
         placeholder={'Optional'}
@@ -98,7 +119,7 @@ function Form() {
         value={form.lName}
         handleChange={handleChange}
       />
-
+      <br />
       <label htmlFor="org">Organisation:</label>
       <TextInputField
         placeholder={'Optional'}
@@ -106,35 +127,35 @@ function Form() {
         value={form.org}
         handleChange={handleChange}
       />
-
+      <br />
       <label htmlFor="email">Email:</label>
       <TextInputField
         name={'email'}
         value={form.email}
         handleChange={handleChange}
       />
-
+      <br />
       <label htmlFor="phone">Telephone number:</label>
       <TextInputField
         name={'phone'}
         value={form.phone}
         handleChange={handleChange}
       />
-
+      <br />
       <label htmlFor="species">Tree species:</label>
       <DropdownInputField
         name={'species'}
         value={form.species}
         handleChange={handleChange}
       />
-
+      <br />
       <label htmlFor="datePlanted">Date planted:</label>
       <DatePickerInput
         name={'datePlanted'}
         value={form.datePlanted}
         handleChange={handleChange}
       />
-
+      <br />
       <label htmlFor="comment">Details:</label>
       <TextAreaInput
         placeholder={'More details about your tree request'}
@@ -142,7 +163,9 @@ function Form() {
         value={form.comment}
         handleChange={handleChange}
       />
-
+      <br />
+      <SuccessMessage showSuccess={showSuccess} />
+      <br />
       <input type="submit" value="submit" />
     </form>
   );
@@ -158,26 +181,4 @@ FOR FILE UPLOAD:
         value={form.treePic}
         handleChange={handleChange}
       />
-
-USING DATE PICKER COMPONENT IMPORTED:
-            <DatePicker
-        name={'datePlanted'}
-        value={form.datePlanted}
-        onChange={value => {
-          setForm({ datePlanted: value });
-          console.log(form.datePlanted);
-        }}
-      />
-
-      EXPERIMENTING WITH SETSTATE OF FORM: 
-          setForm(`{
-        fName: ${event.target.fName},
-        lName: ${event.target.lName},
-        org: ${event.target.org},
-        email: ${event.target.email},
-        phone: ${event.target.phone},
-        species: ${event.target.species},
-        datePlanted: ${event.target.datePlanted},
-        comment: ${event.target.comment}
-      }`);
 */
