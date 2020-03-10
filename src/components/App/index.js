@@ -3,6 +3,7 @@ import css from "./App.module.css";
 import { Map, Marker, Popup, TileLayer } from "react-leaflet";
 import ReactLeafletSearch from "react-leaflet-search";
 import L from "leaflet";
+import Form from '../Form';
 
 const dummyData = [
   {
@@ -151,6 +152,7 @@ function App() {
     <div className={css.container}>
       {map}
       <h1>Happy mapping!</h1>
+    <Form />
     </div>
   );
 }
