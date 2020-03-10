@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import css from "./App.module.css";
 import { Map, Marker, Popup, TileLayer } from "react-leaflet";
 import ReactLeafletSearch from "react-leaflet-search";
 import L from "leaflet";
-import Form from '../Form';
+import Form from "../Form";
+import { TwitterTimelineEmbed } from "react-twitter-embed";
+
+let allowTreeAdd = false;
 
 const dummyData = [
   {
@@ -105,6 +108,7 @@ const redTreeMarker = new L.icon({
   shadowAnchor: null,
   iconSize: new L.Point(15, 15)
 });
+
 const greenTreeMarker = new L.icon({
   iconUrl: require("../../img/icon_green.png"),
   iconAnchor: [0, 0],
@@ -115,10 +119,34 @@ const greenTreeMarker = new L.icon({
   iconSize: new L.Point(15, 15)
 });
 
+function toggleAllowTreeAdd() {
+  allowTreeAdd = !allowTreeAdd;
+}
+
 function App() {
+  const [trees, setTrees] = useState(dummyData);
+
+  function handleClick(e) {
+    const { lat, lng } = e.latlng;
+    const newTree = {
+      lat: lat,
+      lon: lng,
+      species: "larch",
+      status: "planted",
+      photo:
+        "https://upload.wikimedia.org/wikipedia/commons/e/eb/Ash_Tree_-_geograph.org.uk_-_590710.jpg"
+    };
+    allowTreeAdd && setTrees([...trees, newTree]);
+  }
   const bhamPosition = [52.4862, -1.8904];
   const map = (
-    <Map center={bhamPosition} zoom={8} maxZoom={15} minZoom={7}>
+    <Map
+      center={bhamPosition}
+      zoom={8}
+      maxZoom={15}
+      minZoom={7}
+      onclick={handleClick}
+    >
       <ReactLeafletSearch
         position="topleft"
         provider="OpenStreetMap"
@@ -131,7 +159,7 @@ function App() {
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
       />
-      {dummyData.map(x => {
+      {trees.map(x => {
         return (
           <Marker
             icon={x.status === "planted" ? greenTreeMarker : redTreeMarker}
@@ -148,11 +176,18 @@ function App() {
       })}
     </Map>
   );
+
   return (
     <div className={css.container}>
       {map}
       <h1>Happy mapping!</h1>
-    <Form />
+      <button onClick={toggleAllowTreeAdd}>Add tree</button>
+      <Form />
+      <TwitterTimelineEmbed
+        sourceType="profile"
+        screenName="WestMids_CA"
+        options={{ height: "600px", width: "300px" }}
+      />
     </div>
   );
 }
