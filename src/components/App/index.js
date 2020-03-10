@@ -3,6 +3,7 @@ import css from "./App.module.css";
 import { Map, Marker, Popup, TileLayer } from "react-leaflet";
 import ReactLeafletSearch from "react-leaflet-search";
 import L from "leaflet";
+import Form from '../Form';
 
 let allowTreeAdd = false;
 
@@ -180,6 +181,7 @@ function App() {
       {map}
       <h1>Happy mapping!</h1>
       <button onClick={toggleAllowTreeAdd}>Add tree</button>
+    <Form />
     </div>
   );
 }
