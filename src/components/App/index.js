@@ -3,7 +3,8 @@ import css from "./App.module.css";
 import { Map, Marker, Popup, TileLayer } from "react-leaflet";
 import ReactLeafletSearch from "react-leaflet-search";
 import L from "leaflet";
-import Form from '../Form';
+import Form from "../Form";
+import { TwitterTimelineEmbed } from "react-twitter-embed";
 
 let allowTreeAdd = false;
 
@@ -181,7 +182,12 @@ function App() {
       {map}
       <h1>Happy mapping!</h1>
       <button onClick={toggleAllowTreeAdd}>Add tree</button>
-    <Form />
+      <Form />
+      <TwitterTimelineEmbed
+        sourceType="profile"
+        screenName="WestMids_CA"
+        options={{ height: "600px", width: "300px" }}
+      />
     </div>
   );
 }
