@@ -28,9 +28,15 @@ import SuccessMessage from '../SuccessMessage/index';
 -Comment (for details about the requested area)
 */
 
-//TODO: Need conditional rendering - if person selects planter, only display planter fields, and for requesters, only display requester fields -> Manage with state at App level (with buttons)!! Then pass state down to Form as props and do the conditional rendering based on that.
+//TODO: Need conditional rendering - if person selects planter, only display planter fields, and for requesters, only display requester fields:
+//--Make state to toggle between form types ✅
+//--Make function to set that state ✅
+//--Make buttons to toggle
+//--Attach function to buttons
+//--Set input components to conditionally render where necessary
+//--Celebrate!
 
-//TODO: Need a place for the user to upload a photo! Use <input type='file' /> in the FileUploader component.
+//TODO: Need a place for the user to upload a photo! Use <input type='file' /> in the FileUploader component. ✅
 
 //TODO: Correctly label in line with accessibility guidelines for screen readers ✅
 
@@ -60,7 +66,16 @@ function Form() {
     treePic: './sampletree.jpg'
   });
 
+  //State that manages whether the form renders the questions specific to planters or requesters:
+  const [requester, setRequester] = useState(false);
+
+  //State to show success message after form submits:
   const [showSuccess, setShowSuccess] = useState(false);
+
+  //Function to handle switching between requester and planter (default for now is planter):
+  function toggleFormType() {
+    setRequester(!requester);
+  }
 
   //Function to handle form entry:
   function handleChange(event) {
