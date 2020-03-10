@@ -3,8 +3,7 @@ import TextInputField from '../TextInputField/index';
 import DropdownInputField from '../DropdownInputField/index';
 import DatePickerInput from '../DatePickerInput/index';
 import TextAreaInput from '../TextAreaInput/index';
-//import FileUploader from '../FileUploader/index';
-//import DatePicker from 'react-date-picker';
+import FileUploader from '../FileUploader/index';
 import SuccessMessage from '../SuccessMessage/index';
 
 //------------PLAN-----------------------------
@@ -20,16 +19,18 @@ import SuccessMessage from '../SuccessMessage/index';
 -Contact email 
 -Contact phone number 
 -Picture
+
 **Form fields - specific for planters:**
 -Tree species -> Dropdown list!!
 -Date planted 
+
 **Form fields - specific for requesters:**
 -Comment (for details about the requested area)
 */
 
 //TODO: Need conditional rendering - if person selects planter, only display planter fields, and for requesters, only display requester fields -> Manage with state at App level (with buttons)!! Then pass state down to Form as props and do the conditional rendering based on that.
 
-//TODO: Need a place for the user to upload a photo!
+//TODO: Need a place for the user to upload a photo! Use <input type='file' /> in the FileUploader component.
 
 //TODO: Correctly label in line with accessibility guidelines for screen readers ✅
 
@@ -41,7 +42,7 @@ import SuccessMessage from '../SuccessMessage/index';
 
 //TODO: Connect the handleSubmit's fetch to the database using the URL
 
-//TODO: Show a success message once the form is submitted
+//TODO: Show a success message once the form is submitted ✅
 
 //--------------CODE------------------------------
 
@@ -55,8 +56,8 @@ function Form() {
     phone: '',
     species: '',
     datePlanted: new Date(),
-    comment: ''
-    // treePic: './sampletree.jpg'
+    comment: '',
+    treePic: './sampletree.jpg'
   });
 
   const [showSuccess, setShowSuccess] = useState(false);
@@ -73,12 +74,21 @@ function Form() {
       phone: inputName === 'phone' ? inputValue : form.phone,
       species: inputName === 'species' ? inputValue : form.species,
       datePlanted: inputName === 'datePlanted' ? inputValue : form.datePlanted,
-      comment: inputName === 'comment' ? inputValue : form.comment
+      comment: inputName === 'comment' ? inputValue : form.comment,
+      treePic: inputName === 'treePic' ? inputValue : form.treePic
     });
     console.log(inputName);
     console.log(inputValue);
     console.log(form[inputName]);
   }
+
+  //Function to handle file adding:
+  //(NOTE: This goes with the Dropzone code and note at the bottom of the file input component)
+  // function handleFile(acceptedFiles) {
+  //   setForm({
+  //     treePic: acceptedFiles
+  //   });
+  // }
 
   //Function to handle form submission:
   function handleSubmit(event) {
@@ -156,6 +166,9 @@ function Form() {
         handleChange={handleChange}
       />
       <br />
+      <label htmlFor="treePic">Upload a photo:</label>
+      <FileUploader name={'treePic'} handleChange={handleChange} />
+      <br />
       <label htmlFor="comment">Details:</label>
       <TextAreaInput
         placeholder={'More details about your tree request'}
@@ -172,13 +185,3 @@ function Form() {
 }
 
 export default Form;
-
-/*
-FOR FILE UPLOAD: 
-      <label for="treePic">Upload photo:</label>
-      <FileUploader
-        name={'treePic'}
-        value={form.treePic}
-        handleChange={handleChange}
-      />
-*/
