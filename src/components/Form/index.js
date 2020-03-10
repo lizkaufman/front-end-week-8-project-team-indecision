@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import TextInputField from '../TextInputField/index';
 import DropdownInputField from '../DropdownInputField/index';
 import DatePicker from '../DatePicker/index';
@@ -30,16 +30,28 @@ import TextAreaInput from '../TextAreaInput/index';
 
 //TODO: Correctly label in line with accessibility guidelines for screen readers ✅
 
+//TODO: Need states to manage each field
+
 //--------------CODE------------------------------
 
 function Form() {
+  const [fName, setFName] = useState('');
+  const [lName, setLName] = useState('');
+  const [org, setOrg] = useState('');
+  const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
+  const [species, setSpecies] = useState('');
+  const [datePlanted, setDatePlanted] = useState('');
+  const [comment, setComment] = useState('');
+  const [treePic, setTreePic] = useState('');
+
   return (
     <form>
       <label for="fName">First name:</label>
-      <TextInputField placeholder={'Optional'} name={'fname'} value={} />
+      <TextInputField placeholder={'Optional'} name={'fName'} value={} />
 
       <label for="lName">Last Name:</label>
-      <TextInputField placeholder={'Optional'} name={'lname'} value={} />
+      <TextInputField placeholder={'Optional'} name={'lName'} value={} />
 
       <label for="org">Organisation:</label>
       <TextInputField placeholder={'Optional'} name={'org'} value={} />
@@ -54,14 +66,20 @@ function Form() {
       <DropdownInputField name={'species'} value={} />
 
       <label for="datePlanted">Date planted:</label>
-      <DatePicker placeholder={} name={'datePlanted'} value={} />
+      <DatePicker name={'datePlanted'} value={} />
 
       <label for="comment">Details:</label>
-      <TextAreaInput placeholder={} name={'comment'} value={} />
+      <TextAreaInput
+        placeholder={'More details about your tree request'}
+        name={'comment'}
+        value={}
+      />
 
       <label for="treePic">Upload photo:</label>
       <TextInputField
-        placeholder={'This will be replaced by snazzy image uploader!'}
+        placeholder={
+          'This will be replaced by snazzy image uploader React component!'
+        }
         name={'treePic'}
         value={}
       />
