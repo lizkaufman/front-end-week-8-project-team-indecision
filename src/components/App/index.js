@@ -4,6 +4,8 @@ import { Map, Marker, Popup, TileLayer } from "react-leaflet";
 import ReactLeafletSearch from "react-leaflet-search";
 import L from "leaflet";
 
+let allowTreeAdd = false;
+
 const dummyData = [
   {
     lat: 52.862,
@@ -104,6 +106,7 @@ const redTreeMarker = new L.icon({
   shadowAnchor: null,
   iconSize: new L.Point(15, 15)
 });
+
 const greenTreeMarker = new L.icon({
   iconUrl: require("../../img/icon_green.png"),
   iconAnchor: [0, 0],
@@ -114,8 +117,13 @@ const greenTreeMarker = new L.icon({
   iconSize: new L.Point(15, 15)
 });
 
+function toggleAllowTreeAdd() {
+  allowTreeAdd = !allowTreeAdd;
+}
+
 function App() {
   const [trees, setTrees] = useState(dummyData);
+
   function handleClick(e) {
     const { lat, lng } = e.latlng;
     const newTree = {
@@ -126,7 +134,7 @@ function App() {
       photo:
         "https://upload.wikimedia.org/wikipedia/commons/e/eb/Ash_Tree_-_geograph.org.uk_-_590710.jpg"
     };
-    setTrees([...trees, newTree]);
+    allowTreeAdd && setTrees([...trees, newTree]);
   }
   const bhamPosition = [52.4862, -1.8904];
   const map = (
@@ -166,10 +174,12 @@ function App() {
       })}
     </Map>
   );
+
   return (
     <div className={css.container}>
       {map}
       <h1>Happy mapping!</h1>
+      <button onClick={toggleAllowTreeAdd}>Add tree</button>
     </div>
   );
 }
