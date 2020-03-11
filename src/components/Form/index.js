@@ -5,6 +5,7 @@ import DatePickerInput from '../DatePickerInput/index';
 import TextAreaInput from '../TextAreaInput/index';
 import FileUploader from '../FileUploader/index';
 import SuccessMessage from '../SuccessMessage/index';
+import Button from '../Button';
 
 //------------PLAN-----------------------------
 
@@ -28,9 +29,16 @@ import SuccessMessage from '../SuccessMessage/index';
 -Comment (for details about the requested area)
 */
 
-//TODO: Need conditional rendering - if person selects planter, only display planter fields, and for requesters, only display requester fields -> Manage with state at App level (with buttons)!! Then pass state down to Form as props and do the conditional rendering based on that.
+//TODO: Need conditional rendering - if person selects planter, only display planter fields, and for requesters, only display requester fields:
+//--Make state to toggle between form types ✅
+//--Make function to set that state ✅
+//--Make buttons to toggle ✅
+//--Attach function to buttons ✅
+//--Have key within form state to flag which form and connect to buttons ✅
+//--Set input components to conditionally render where necessary ✅
+//FIXME: Error related to controlled components being uncontrolled; for regular inputs, this is fine because you set the value to the state, but for the button, you can't set a value (unless you change it to <input> with a type='button', but then this makes the value what the text in the button shows - so it would just show true and false).
 
-//TODO: Need a place for the user to upload a photo! Use <input type='file' /> in the FileUploader component.
+//TODO: Need a place for the user to upload a photo! Use <input type='file' /> in the FileUploader component. ✅
 
 //TODO: Correctly label in line with accessibility guidelines for screen readers ✅
 
@@ -57,10 +65,30 @@ function Form() {
     species: '',
     datePlanted: new Date(),
     comment: '',
-    treePic: './sampletree.jpg'
+    treePic: './sampletree.jpg',
+    requester: false
   });
 
+  //State that manages whether the form renders the questions specific to planters or requesters:
+  const [requester, setRequester] = useState(false);
+
+  //State to show success message after form submits:
   const [showSuccess, setShowSuccess] = useState(false);
+
+  //Functions to handle switching between requester and planter (default is planter):
+  function toggleFormTypeRequester() {
+    setRequester(true);
+    setForm({ requester: true });
+    console.log('requester state: ', requester);
+    console.log(form.requester);
+  }
+  function toggleFormTypePlanter() {
+    setRequester(false);
+    setForm({ requester: false });
+    console.log('requester state: ', requester);
+    console.log(form.requester);
+  }
+  //The console logs will be wrong the first time you press. Press it again and they'll be right. It's because the console.log is always one step behind the actual state change.
 
   //Function to handle form entry:
   function handleChange(event) {
@@ -75,7 +103,8 @@ function Form() {
       species: inputName === 'species' ? inputValue : form.species,
       datePlanted: inputName === 'datePlanted' ? inputValue : form.datePlanted,
       comment: inputName === 'comment' ? inputValue : form.comment,
-      treePic: inputName === 'treePic' ? inputValue : form.treePic
+      treePic: inputName === 'treePic' ? inputValue : form.treePic,
+      requester: inputName === 'requester' ? inputValue : form.requester
     });
     console.log(inputName);
     console.log(inputValue);
@@ -113,74 +142,92 @@ function Form() {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <label htmlFor="fName">First name:</label>
-      <TextInputField
-        placeholder={'Optional'}
-        name={'fName'}
-        value={form.fName}
-        handleChange={handleChange}
+    <>
+      <Button
+        name="requester"
+        buttonText="Click here if you would like to request tree(s) in an area"
+        handleClick={toggleFormTypeRequester}
       />
-      <br />
-      <label htmlFor="lName">Last Name:</label>
-      <TextInputField
-        placeholder={'Optional'}
-        name={'lName'}
-        value={form.lName}
-        handleChange={handleChange}
+      <Button
+        name="requester"
+        buttonText="Click here if you would like to register tree(s) you've planted"
+        handleClick={toggleFormTypePlanter}
       />
-      <br />
-      <label htmlFor="org">Organisation:</label>
-      <TextInputField
-        placeholder={'Optional'}
-        name={'org'}
-        value={form.org}
-        handleChange={handleChange}
-      />
-      <br />
-      <label htmlFor="email">Email:</label>
-      <TextInputField
-        name={'email'}
-        value={form.email}
-        handleChange={handleChange}
-      />
-      <br />
-      <label htmlFor="phone">Telephone number:</label>
-      <TextInputField
-        name={'phone'}
-        value={form.phone}
-        handleChange={handleChange}
-      />
-      <br />
-      <label htmlFor="species">Tree species:</label>
-      <DropdownInputField
-        name={'species'}
-        value={form.species}
-        handleChange={handleChange}
-      />
-      <br />
-      <label htmlFor="datePlanted">Date planted:</label>
-      <DatePickerInput
-        name={'datePlanted'}
-        value={form.datePlanted}
-        handleChange={handleChange}
-      />
-      <br />
-      <label htmlFor="treePic">Upload a photo:</label>
-      <FileUploader name={'treePic'} handleChange={handleChange} />
-      <br />
-      <label htmlFor="comment">Details:</label>
-      <TextAreaInput
-        placeholder={'More details about your tree request'}
-        name={'comment'}
-        value={form.comment}
-        handleChange={handleChange}
-      />
-      <br />
-      <SuccessMessage showSuccess={showSuccess} />
-      <br />
-      <input type="submit" value="submit" />
-    </form>
+      <form onSubmit={handleSubmit}>
+        <label htmlFor="fName">First name:</label>
+        <TextInputField
+          placeholder={'Optional'}
+          name={'fName'}
+          value={form.fName}
+          handleChange={handleChange}
+        />
+        <br />
+        <label htmlFor="lName">Last Name:</label>
+        <TextInputField
+          placeholder={'Optional'}
+          name={'lName'}
+          value={form.lName}
+          handleChange={handleChange}
+        />
+        <br />
+        <label htmlFor="org">Organisation:</label>
+        <TextInputField
+          placeholder={'Optional'}
+          name={'org'}
+          value={form.org}
+          handleChange={handleChange}
+        />
+        <br />
+        <label htmlFor="email">Email:</label>
+        <TextInputField
+          name={'email'}
+          value={form.email}
+          handleChange={handleChange}
+        />
+        <br />
+        <label htmlFor="phone">Telephone number:</label>
+        <TextInputField
+          name={'phone'}
+          value={form.phone}
+          handleChange={handleChange}
+        />
+        <br />
+        {!requester ? <label htmlFor="species">Tree species:</label> : null}
+        {!requester ? (
+          <DropdownInputField
+            name={'species'}
+            value={form.species}
+            handleChange={handleChange}
+          />
+        ) : null}
+        <br />
+        {!requester ? <label htmlFor="datePlanted">Date planted:</label> : null}
+        {!requester ? (
+          <DatePickerInput
+            name={'datePlanted'}
+            value={form.datePlanted}
+            handleChange={handleChange}
+          />
+        ) : null}
+        <br />
+        <label htmlFor="treePic">Upload a photo:</label>
+        <FileUploader name={'treePic'} handleChange={handleChange} />
+        <br />
+        {requester ? <label htmlFor="comment">Details:</label> : null}
+        {requester ? (
+          <TextAreaInput
+            placeholder={'More details about your tree request'}
+            name={'comment'}
+            value={form.comment}
+            handleChange={handleChange}
+          />
+        ) : null}
+        <br />
+        <SuccessMessage showSuccess={showSuccess} />
+        <br />
+        <input type="submit" value="submit" />
+      </form>
+    </>
   );
 }
 
