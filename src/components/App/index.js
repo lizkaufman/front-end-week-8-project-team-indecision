@@ -8,6 +8,8 @@ import {
   TwitterTimelineEmbed,
   TwitterHashtagButton
 } from "react-twitter-embed";
+import bhamPoly from "../../data/const/const_bng.js";
+console.log(bhamPoly.type);
 
 // Set global vars
 let allowTreeAdd = false;
