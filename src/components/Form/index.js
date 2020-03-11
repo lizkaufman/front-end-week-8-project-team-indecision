@@ -59,6 +59,9 @@ import FormPrivacyOptions from '../FormPrivacyOptions/index';
 //--------------CODE------------------------------
 
 function Form() {
+  //State to manage uploaded image file:
+  const [file, setFile] = useState(null);
+
   //State to manage form content:
   const [form, setForm] = useState({
     fName: '',
@@ -69,7 +72,7 @@ function Form() {
     species: '',
     datePlanted: new Date(),
     comment: '',
-    treePic: './sampletree.jpg',
+    treePic: `${file}`,
     requester: false
   });
 
@@ -113,6 +116,16 @@ function Form() {
     console.log(inputName);
     console.log(inputValue);
     console.log(form[inputName]);
+  }
+
+  function handleFile(event) {
+    //event.target.files -> array of stored files
+    //target.files[0] -> actual file and details
+    //setFile -> sets file state
+    const imgFile = event.target.files[0];
+    setFile(imgFile);
+    console.log(imgFile);
+    console.log('file state: ', file);
   }
 
   //Function to handle file adding:
@@ -250,7 +263,7 @@ function Form() {
         ) : null}
         <br />
         <label htmlFor="treePic">Upload a photo:</label>
-        <FileUploader name={'treePic'} handleChange={handleChange} />
+        <FileUploader name={'treePic'} handleFile={handleFile} />
         <br />
         {requester ? (
           <label htmlFor="comment">Details of request:</label>

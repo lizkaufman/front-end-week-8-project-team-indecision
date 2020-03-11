@@ -1,8 +1,8 @@
 import React, { useCallback } from 'react';
 //import { useDropzone } from 'react-dropzone';
 
-function FileUploader({ name, handleChange }) {
-  return <input type="file" name={name} onChange={handleChange} />;
+function FileUploader({ name, handleFile }) {
+  return <input type="file" name={name} onChange={handleFile} />;
 }
 
 export default FileUploader;
