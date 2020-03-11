@@ -1,14 +1,14 @@
-import React, { useState, useEffect } from "react";
-import css from "./App.module.css";
-import { Map, Marker, Popup, TileLayer, GeoJSON } from "react-leaflet";
-import ReactLeafletSearch from "react-leaflet-search";
-import L from "leaflet";
-import Form from "../Form";
+import React, { useState, useEffect } from 'react';
+import css from './App.module.css';
+import { Map, Marker, Popup, TileLayer, GeoJSON } from 'react-leaflet';
+import ReactLeafletSearch from 'react-leaflet-search';
+import L from 'leaflet';
+import Form from '../Form';
 import {
   TwitterTimelineEmbed,
   TwitterHashtagButton
-} from "react-twitter-embed";
-import bhamPoly from "../../const_wgs84";
+} from 'react-twitter-embed';
+import bhamPoly from '../../const_wgs84';
 
 // Set global vars
 let allowTreeAdd = false;
@@ -18,95 +18,95 @@ const dummyData = [
   {
     lat: 52.862,
     lon: -1.904,
-    species: "larch",
-    status: "planted",
+    species: 'larch',
+    status: 'planted',
     photo:
-      "https://upload.wikimedia.org/wikipedia/commons/e/eb/Ash_Tree_-_geograph.org.uk_-_590710.jpg"
+      'https://upload.wikimedia.org/wikipedia/commons/e/eb/Ash_Tree_-_geograph.org.uk_-_590710.jpg'
   },
   {
     lat: 52.62,
     lon: -1.04,
-    species: "elm",
-    status: "requested",
+    species: 'elm',
+    status: 'requested',
     photo:
-      "https://upload.wikimedia.org/wikipedia/commons/e/eb/Ash_Tree_-_geograph.org.uk_-_590710.jpg"
+      'https://upload.wikimedia.org/wikipedia/commons/e/eb/Ash_Tree_-_geograph.org.uk_-_590710.jpg'
   },
   {
     lat: 52.2,
     lon: -1.4,
-    species: "ash",
-    status: "planted",
+    species: 'ash',
+    status: 'planted',
     photo:
-      "https://upload.wikimedia.org/wikipedia/commons/e/eb/Ash_Tree_-_geograph.org.uk_-_590710.jpg"
+      'https://upload.wikimedia.org/wikipedia/commons/e/eb/Ash_Tree_-_geograph.org.uk_-_590710.jpg'
   },
   {
     lat: 52.4862,
     lon: -1.8904,
-    species: "birch",
-    status: "requested",
+    species: 'birch',
+    status: 'requested',
     photo:
-      "https://upload.wikimedia.org/wikipedia/commons/e/eb/Ash_Tree_-_geograph.org.uk_-_590710.jpg"
+      'https://upload.wikimedia.org/wikipedia/commons/e/eb/Ash_Tree_-_geograph.org.uk_-_590710.jpg'
   },
   {
     lat: 52.862,
     lon: -1.8904,
-    species: "larch",
-    status: "planted",
+    species: 'larch',
+    status: 'planted',
     photo:
-      "https://upload.wikimedia.org/wikipedia/commons/e/eb/Ash_Tree_-_geograph.org.uk_-_590710.jpg"
+      'https://upload.wikimedia.org/wikipedia/commons/e/eb/Ash_Tree_-_geograph.org.uk_-_590710.jpg'
   },
   {
     lat: 52.62,
     lon: -1.8904,
-    species: "elm",
-    status: "requested",
+    species: 'elm',
+    status: 'requested',
     photo:
-      "https://upload.wikimedia.org/wikipedia/commons/e/eb/Ash_Tree_-_geograph.org.uk_-_590710.jpg"
+      'https://upload.wikimedia.org/wikipedia/commons/e/eb/Ash_Tree_-_geograph.org.uk_-_590710.jpg'
   },
   {
     lat: 52.2,
     lon: -1.8904,
-    species: "ash",
-    status: "requested",
+    species: 'ash',
+    status: 'requested',
     photo:
-      "https://upload.wikimedia.org/wikipedia/commons/e/eb/Ash_Tree_-_geograph.org.uk_-_590710.jpg"
+      'https://upload.wikimedia.org/wikipedia/commons/e/eb/Ash_Tree_-_geograph.org.uk_-_590710.jpg'
   },
   {
     lat: 52.4862,
     lon: -1.8904,
-    species: "birch",
-    status: "planted",
+    species: 'birch',
+    status: 'planted',
     photo:
-      "https://upload.wikimedia.org/wikipedia/commons/e/eb/Ash_Tree_-_geograph.org.uk_-_590710.jpg"
+      'https://upload.wikimedia.org/wikipedia/commons/e/eb/Ash_Tree_-_geograph.org.uk_-_590710.jpg'
   },
   {
     lat: 52.4862,
     lon: -1.904,
-    species: "larch",
-    status: "planted",
+    species: 'larch',
+    status: 'planted',
     photo:
-      "https://upload.wikimedia.org/wikipedia/commons/e/eb/Ash_Tree_-_geograph.org.uk_-_590710.jpg"
+      'https://upload.wikimedia.org/wikipedia/commons/e/eb/Ash_Tree_-_geograph.org.uk_-_590710.jpg'
   },
   {
     lat: 52.4862,
     lon: -1.04,
-    species: "elm",
-    status: "requested",
+    species: 'elm',
+    status: 'requested',
     photo:
-      "https://upload.wikimedia.org/wikipedia/commons/e/eb/Ash_Tree_-_geograph.org.uk_-_590710.jpg"
+      'https://upload.wikimedia.org/wikipedia/commons/e/eb/Ash_Tree_-_geograph.org.uk_-_590710.jpg'
   },
   {
     lat: 52.4862,
     lon: -1.4,
-    species: "ash",
-    status: "planted",
+    species: 'ash',
+    status: 'planted',
     photo:
-      "https://upload.wikimedia.org/wikipedia/commons/e/eb/Ash_Tree_-_geograph.org.uk_-_590710.jpg"
+      'https://upload.wikimedia.org/wikipedia/commons/e/eb/Ash_Tree_-_geograph.org.uk_-_590710.jpg'
   }
 ];
 
 const redTreeMarker = new L.icon({
-  iconUrl: require("../../img/icon_red.png"),
+  iconUrl: require('../../img/icon_red.png'),
   iconAnchor: [0, 0],
   popupAnchor: [0, 0],
   shadowUrl: null,
@@ -116,7 +116,7 @@ const redTreeMarker = new L.icon({
 });
 
 const greenTreeMarker = new L.icon({
-  iconUrl: require("../../img/icon_green.png"),
+  iconUrl: require('../../img/icon_green.png'),
   iconAnchor: [0, 0],
   popupAnchor: [0, 0],
   shadowUrl: null,
@@ -131,12 +131,17 @@ function toggleAllowTreeAdd() {
 
 function App() {
   const [trees, setTrees] = useState(dummyData);
+
+  //states to manage current tree lat/long:
+  const [currentLat, setCurrentLat] = useState(null);
+  const [currentLong, setCurrentLong] = useState(null);
+
   const requestOptions = {
-    method: "GET",
-    headers: { "Content-Type": "application/json" }
+    method: 'GET',
+    headers: { 'Content-Type': 'application/json' }
   };
   useEffect(() => {
-    fetch("http://192.168.0.71:5000/trees", requestOptions)
+    fetch('http://192.168.0.71:5000/trees', requestOptions)
       .then(res => res.json())
       .then(x => {
         setTrees(x);
@@ -150,13 +155,22 @@ function App() {
     const newTree = {
       latitude: lat,
       longitude: lng,
-      species: "larch",
-      status: "planted",
-      comment: "This was just added!",
+      species: 'larch',
+      status: 'planted',
+      comment: 'This was just added!',
       image:
-        "https://upload.wikimedia.org/wikipedia/commons/e/eb/Ash_Tree_-_geograph.org.uk_-_590710.jpg"
+        'https://upload.wikimedia.org/wikipedia/commons/e/eb/Ash_Tree_-_geograph.org.uk_-_590710.jpg'
     };
+    //need to get lat and lng from this function into the form state
+    //--to do this, need two states, currentLat and currentLong (with set functions) ✅
+    //--we set these states in this handleClick ✅
+    //--and then pass these states down to <Form /> via props ✅
+    //--in Form, we add these to the form state object - need to add new keys for these and match them up w/ the sql stuff ✅
+    //--test
     allowTreeAdd && setTrees([...trees, newTree]);
+    setCurrentLat(lat);
+    setCurrentLong(lng);
+    console.log('lat: ', lat, 'long: ', long);
   }
 
   function getMyGeolocation() {
@@ -184,7 +198,7 @@ function App() {
       <ReactLeafletSearch
         position="topleft"
         provider="OpenStreetMap"
-        providerOptions={{ region: "gb" }}
+        providerOptions={{ region: 'gb' }}
         inputPlaceholder="Search by postcode or area name"
         closeResultsOnClick={true}
         showPopup={true}
@@ -195,32 +209,32 @@ function App() {
       />
       <GeoJSON
         data={bhamPoly}
-        style={{ color: "darkgreen", fillColor: "lightgreen", weight: 1 }}
+        style={{ color: 'darkgreen', fillColor: 'lightgreen', weight: 1 }}
       />
       {trees.map(x => {
         if (x.longitude) {
           return (
             <Marker
-              icon={x.status === "Planted" ? greenTreeMarker : redTreeMarker}
+              icon={x.status === 'Planted' ? greenTreeMarker : redTreeMarker}
               position={[x.latitude, x.longitude]}
               key={x.status + x.latitude + x.longitude + x.species + x.treeid}
             >
-              <Popup style={{ color: "red" }}>
-                <p style={{ textAlign: "center", padding: "5px" }}>
+              <Popup style={{ color: 'red' }}>
+                <p style={{ textAlign: 'center', padding: '5px' }}>
                   <strong>{x.species}</strong>
                   <br />
                   {x.comment} <br />
                 </p>
-                {x.image.type === "Buffer" ? (
+                {x.image.type === 'Buffer' ? (
                   <img
-                    style={{ margin: "0 auto", display: "block" }}
+                    style={{ margin: '0 auto', display: 'block' }}
                     width="100px"
-                    src={require("../../img/tree_silhouette.png")}
+                    src={require('../../img/tree_silhouette.png')}
                     alt={x.species}
                   />
                 ) : (
                   <img
-                    style={{ margin: "0 auto", display: "block" }}
+                    style={{ margin: '0 auto', display: 'block' }}
                     width="100px"
                     src={x.image}
                     alt={x.species}
@@ -239,7 +253,7 @@ function App() {
       <header>
         <img
           className={css.WMCALogo}
-          src={require("../../img/West_Midlands_Combined_Authority_logo.png")}
+          src={require('../../img/West_Midlands_Combined_Authority_logo.png')}
           alt="West Midlands Combined Authority Logo"
         />
         <h1>West Midlands Virtual Forest</h1>
@@ -255,17 +269,17 @@ function App() {
         </button>
       </div>
       <div className={css.treeEntryForm}>
-        <Form />
+        <Form currentLat={currentLat} currentLong={currentLong} />
       </div>
       <div className={css.twitterFeed}>
         <TwitterTimelineEmbed
           sourceType="profile"
           screenName="WestMids_CA"
-          options={{ width: "600px", height: "900px" }}
+          options={{ width: '600px', height: '900px' }}
         />
       </div>
       <div className={css.twitterHashTagButton}>
-        <TwitterHashtagButton tag={"NeedsATree"} />
+        <TwitterHashtagButton tag={'NeedsATree'} />
       </div>
       <footer>
         <a href="https://www.wmca.org.uk/careers?_ga=2.233332958.1505638702.1583852010-1790124967.1583750647">

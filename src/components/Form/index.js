@@ -58,7 +58,7 @@ import FormPrivacyOptions from '../FormPrivacyOptions/index';
 
 //--------------CODE------------------------------
 
-function Form() {
+function Form({ currentLat, currentLong }) {
   //State to manage uploaded image file:
   const [file, setFile] = useState(null);
 
@@ -73,7 +73,9 @@ function Form() {
     datePlanted: new Date(),
     comment: '',
     treePic: `${file}`,
-    requester: false
+    requester: false,
+    latitude: `${currentLat}`,
+    longitude: `${currentLong}`
   });
 
   //State that manages whether the form renders the questions specific to planters or requesters:
