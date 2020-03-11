@@ -1,42 +1,48 @@
-import React from 'react';
+import React from "react";
+import css from "../Form/Form.module.css";
 
 const treeSpecies = [
-  'Alder',
-  'Apple',
-  'Ash',
-  'Aspen',
-  'Beech',
-  'Birch',
-  'Blackthorn',
-  'Box',
-  'Buckthorn',
-  'Cherry',
-  'Dogwood',
-  'Elder',
-  'Elm',
-  'Hawthorn',
-  'Hazel',
-  'Holly',
-  'Hornbeam',
-  'Juniper',
-  'Oak',
-  'Rowan',
-  'Lime',
-  'Maple',
-  'Pear',
-  'Pine',
-  'Poplar',
-  'Spindle',
-  'Whitebeam',
-  'Willow',
-  'Yew'
+  "Alder",
+  "Apple",
+  "Ash",
+  "Aspen",
+  "Beech",
+  "Birch",
+  "Blackthorn",
+  "Box",
+  "Buckthorn",
+  "Cherry",
+  "Dogwood",
+  "Elder",
+  "Elm",
+  "Hawthorn",
+  "Hazel",
+  "Holly",
+  "Hornbeam",
+  "Juniper",
+  "Oak",
+  "Rowan",
+  "Lime",
+  "Maple",
+  "Pear",
+  "Pine",
+  "Poplar",
+  "Spindle",
+  "Whitebeam",
+  "Willow",
+  "Yew"
 ];
 
 function DropdownInputField({ name, value, handleChange }) {
   return (
-    <select name={name} value={value} onChange={handleChange}>
+    <select
+      name={name}
+      value={value}
+      onChange={handleChange}
+      className={css.selectTreeSpecies}
+    >
       {treeSpecies.map(species => (
-        <option value={species} key={species}>
+        <option className={css.selectTreeSpecies} value={species} key={species}>
           {species}
         </option>
       ))}
