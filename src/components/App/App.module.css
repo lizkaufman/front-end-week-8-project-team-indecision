@@ -36,6 +36,14 @@ header {
   background-color: green;
 }
 
+.addTreeHereButton {
+  grid-column: 2;
+  grid-row: 2;
+  width: 100px;
+  height: 100px;
+  background-color: lightgreen;
+}
+
 .treeEntryForm {
   grid-column: 1;
   grid-row: 2;

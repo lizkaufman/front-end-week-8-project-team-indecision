@@ -128,6 +128,19 @@ function toggleAllowTreeAdd() {
   allowTreeAdd = !allowTreeAdd;
 }
 
+function getMyGeolocation() {
+  let myLat, myLon;
+  function geoSuccess(pos) {
+    myLat = pos.coords.latitude;
+    myLon = pos.coords.longitude;
+    console.log("these are the coords: ", myLat, myLon);
+  }
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(geoSuccess);
+  }
+  // return { myLat, myLon };
+}
+
 function App() {
   const [trees, setTrees] = useState(dummyData);
 
@@ -189,6 +202,9 @@ function App() {
         {map}
         <button className={css.addTreeButton} onClick={toggleAllowTreeAdd}>
           Add tree
+        </button>
+        <button className={css.addTreeHereButton} onClick={getMyGeolocation}>
+          Add a tree at my current location
         </button>
       </div>
       <div className={css.treeEntryForm}>
