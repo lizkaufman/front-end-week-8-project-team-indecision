@@ -34,8 +34,9 @@ import Button from '../Button';
 //--Make function to set that state ✅
 //--Make buttons to toggle ✅
 //--Attach function to buttons ✅
-//--Have key within form state to flag which form and connect to buttons
+//--Have key within form state to flag which form and connect to buttons ✅
 //--Set input components to conditionally render where necessary ✅
+//FIXME: Error related to controlled components being uncontrolled; for regular inputs, this is fine because you set the value to the state, but for the button, you can't set a value (unless you change it to <input> with a type='button', but then this makes the value what the text in the button shows - so it would just show true and false).
 
 //TODO: Need a place for the user to upload a photo! Use <input type='file' /> in the FileUploader component. ✅
 
@@ -77,12 +78,17 @@ function Form() {
   //Functions to handle switching between requester and planter (default is planter):
   function toggleFormTypeRequester() {
     setRequester(true);
+    setForm({ requester: true });
     console.log('requester state: ', requester);
+    console.log(form.requester);
   }
   function toggleFormTypePlanter() {
     setRequester(false);
+    setForm({ requester: false });
     console.log('requester state: ', requester);
+    console.log(form.requester);
   }
+  //The console logs will be wrong the first time you press. Press it again and they'll be right. It's because the console.log is always one step behind the actual state change.
 
   //Function to handle form entry:
   function handleChange(event) {
@@ -136,88 +142,92 @@ function Form() {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
+    <>
       <Button
+        name="requester"
         buttonText="Click here if you would like to request tree(s) in an area"
         handleClick={toggleFormTypeRequester}
       />
       <Button
+        name="requester"
         buttonText="Click here if you would like to register tree(s) you've planted"
         handleClick={toggleFormTypePlanter}
       />
-      <label htmlFor="fName">First name:</label>
-      <TextInputField
-        placeholder={'Optional'}
-        name={'fName'}
-        value={form.fName}
-        handleChange={handleChange}
-      />
-      <br />
-      <label htmlFor="lName">Last Name:</label>
-      <TextInputField
-        placeholder={'Optional'}
-        name={'lName'}
-        value={form.lName}
-        handleChange={handleChange}
-      />
-      <br />
-      <label htmlFor="org">Organisation:</label>
-      <TextInputField
-        placeholder={'Optional'}
-        name={'org'}
-        value={form.org}
-        handleChange={handleChange}
-      />
-      <br />
-      <label htmlFor="email">Email:</label>
-      <TextInputField
-        name={'email'}
-        value={form.email}
-        handleChange={handleChange}
-      />
-      <br />
-      <label htmlFor="phone">Telephone number:</label>
-      <TextInputField
-        name={'phone'}
-        value={form.phone}
-        handleChange={handleChange}
-      />
-      <br />
-      {!requester ? <label htmlFor="species">Tree species:</label> : null}
-      {!requester ? (
-        <DropdownInputField
-          name={'species'}
-          value={form.species}
+      <form onSubmit={handleSubmit}>
+        <label htmlFor="fName">First name:</label>
+        <TextInputField
+          placeholder={'Optional'}
+          name={'fName'}
+          value={form.fName}
           handleChange={handleChange}
         />
-      ) : null}
-      <br />
-      {!requester ? <label htmlFor="datePlanted">Date planted:</label> : null}
-      {!requester ? (
-        <DatePickerInput
-          name={'datePlanted'}
-          value={form.datePlanted}
+        <br />
+        <label htmlFor="lName">Last Name:</label>
+        <TextInputField
+          placeholder={'Optional'}
+          name={'lName'}
+          value={form.lName}
           handleChange={handleChange}
         />
-      ) : null}
-      <br />
-      <label htmlFor="treePic">Upload a photo:</label>
-      <FileUploader name={'treePic'} handleChange={handleChange} />
-      <br />
-      {requester ? <label htmlFor="comment">Details:</label> : null}
-      {requester ? (
-        <TextAreaInput
-          placeholder={'More details about your tree request'}
-          name={'comment'}
-          value={form.comment}
+        <br />
+        <label htmlFor="org">Organisation:</label>
+        <TextInputField
+          placeholder={'Optional'}
+          name={'org'}
+          value={form.org}
           handleChange={handleChange}
         />
-      ) : null}
-      <br />
-      <SuccessMessage showSuccess={showSuccess} />
-      <br />
-      <input type="submit" value="submit" />
-    </form>
+        <br />
+        <label htmlFor="email">Email:</label>
+        <TextInputField
+          name={'email'}
+          value={form.email}
+          handleChange={handleChange}
+        />
+        <br />
+        <label htmlFor="phone">Telephone number:</label>
+        <TextInputField
+          name={'phone'}
+          value={form.phone}
+          handleChange={handleChange}
+        />
+        <br />
+        {!requester ? <label htmlFor="species">Tree species:</label> : null}
+        {!requester ? (
+          <DropdownInputField
+            name={'species'}
+            value={form.species}
+            handleChange={handleChange}
+          />
+        ) : null}
+        <br />
+        {!requester ? <label htmlFor="datePlanted">Date planted:</label> : null}
+        {!requester ? (
+          <DatePickerInput
+            name={'datePlanted'}
+            value={form.datePlanted}
+            handleChange={handleChange}
+          />
+        ) : null}
+        <br />
+        <label htmlFor="treePic">Upload a photo:</label>
+        <FileUploader name={'treePic'} handleChange={handleChange} />
+        <br />
+        {requester ? <label htmlFor="comment">Details:</label> : null}
+        {requester ? (
+          <TextAreaInput
+            placeholder={'More details about your tree request'}
+            name={'comment'}
+            value={form.comment}
+            handleChange={handleChange}
+          />
+        ) : null}
+        <br />
+        <SuccessMessage showSuccess={showSuccess} />
+        <br />
+        <input type="submit" value="submit" />
+      </form>
+    </>
   );
 }
 
