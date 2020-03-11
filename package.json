@@ -10,6 +10,7 @@
     "react": "^16.13.0",
     "react-date-picker": "^7.10.0",
     "react-dom": "^16.13.0",
+    "react-dropzone": "^10.2.1",
     "react-geolocated": "^3.0.1",
     "react-leaflet": "^2.6.1",
     "react-leaflet-search": "^1.0.3",
