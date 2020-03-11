@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import css from "./App.module.css";
 import { Map, Marker, Popup, TileLayer, GeoJSON } from "react-leaflet";
 import ReactLeafletSearch from "react-leaflet-search";
@@ -129,41 +129,56 @@ function toggleAllowTreeAdd() {
   allowTreeAdd = !allowTreeAdd;
 }
 
-function getMyGeolocation() {
-  let myLat, myLon;
-  function geoSuccess(pos) {
-    myLat = pos.coords.latitude;
-    myLon = pos.coords.longitude;
-    console.log("these are the coords: ", myLat, myLon);
-  }
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(geoSuccess);
-  }
-  // return { myLat, myLon };
-}
-
 function App() {
   const [trees, setTrees] = useState(dummyData);
+  const requestOptions = {
+    method: "GET",
+    headers: { "Content-Type": "application/json" }
+  };
+  useEffect(() => {
+    fetch("http://192.168.0.71:5000/trees", requestOptions)
+      .then(res => res.json())
+      .then(x => {
+        setTrees(x);
+        console.log(x.image);
+      });
+  }, []);
+  console.log(trees);
 
   function handleClick(e) {
     const { lat, lng } = e.latlng;
     const newTree = {
-      lat: lat,
-      lon: lng,
+      latitude: lat,
+      longitude: lng,
       species: "larch",
       status: "planted",
-      photo:
+      comment: "This was just added!",
+      image:
         "https://upload.wikimedia.org/wikipedia/commons/e/eb/Ash_Tree_-_geograph.org.uk_-_590710.jpg"
     };
     allowTreeAdd && setTrees([...trees, newTree]);
+  }
+
+  function getMyGeolocation() {
+    let myLat, myLon;
+    function geoSuccess(pos) {
+      myLat = pos.coords.latitude;
+      myLon = pos.coords.longitude;
+      allowTreeAdd = !allowTreeAdd;
+      handleClick({ latlng: { lat: myLat, lng: myLon } });
+      allowTreeAdd = !allowTreeAdd;
+    }
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(geoSuccess);
+    }
   }
 
   const map = (
     <Map
       center={bhamPosition}
       zoom={9}
-      maxZoom={15}
-      minZoom={7}
+      maxZoom={16}
+      minZoom={8}
       onclick={handleClick}
     >
       <ReactLeafletSearch
@@ -183,19 +198,38 @@ function App() {
         style={{ color: "darkgreen", fillColor: "lightgreen", weight: 1 }}
       />
       {trees.map(x => {
-        return (
-          <Marker
-            icon={x.status === "planted" ? greenTreeMarker : redTreeMarker}
-            position={[x.lat, x.lon]}
-            key={x.status + x.lat + x.lon + x.species}
-          >
-            <Popup>
-              A pretty CSS3 popup {x.species}.<br />
-              Easily customizable. <br />
-              <img width="100px" src={x.photo} alt="A West Midlands tree." />
-            </Popup>
-          </Marker>
-        );
+        if (x.longitude) {
+          return (
+            <Marker
+              icon={x.status === "Planted" ? greenTreeMarker : redTreeMarker}
+              position={[x.latitude, x.longitude]}
+              key={x.status + x.latitude + x.longitude + x.species + x.treeid}
+            >
+              <Popup style={{ color: "red" }}>
+                <p style={{ textAlign: "center", padding: "5px" }}>
+                  <strong>{x.species}</strong>
+                  <br />
+                  {x.comment} <br />
+                </p>
+                {x.image.type === "Buffer" ? (
+                  <img
+                    style={{ margin: "0 auto", display: "block" }}
+                    width="100px"
+                    src={require("../../img/tree_silhouette.png")}
+                    alt={x.species}
+                  />
+                ) : (
+                  <img
+                    style={{ margin: "0 auto", display: "block" }}
+                    width="100px"
+                    src={x.image}
+                    alt={x.species}
+                  />
+                )}
+              </Popup>
+            </Marker>
+          );
+        }
       })}
     </Map>
   );
