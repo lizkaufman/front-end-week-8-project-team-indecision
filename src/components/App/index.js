@@ -161,7 +161,7 @@ function App() {
   const map = (
     <Map
       center={bhamPosition}
-      zoom={8}
+      zoom={9}
       maxZoom={15}
       minZoom={7}
       onclick={handleClick}
@@ -202,7 +202,15 @@ function App() {
 
   return (
     <div className={css.container}>
-      <header>West Midlands Combined Authority Virtual Forest</header>
+      <header>
+        <img
+          className={css.WMCALogo}
+          src={require("../../img/West_Midlands_Combined_Authority_logo.png")}
+          alt="West Midlands Combined Authority Logo"
+        />
+        <h1>West Midlands Virtual Forest</h1>
+      </header>
+
       <div className={css.mapStyle}>
         {map}
         <button className={css.addTreeButton} onClick={toggleAllowTreeAdd}>

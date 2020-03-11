@@ -4,6 +4,14 @@
   --primary-font: Courier;
 }
 
+html {
+  background: url(img/two-brown-trees.jpg) no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
 body {
   margin: 0;
   font-family: "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
