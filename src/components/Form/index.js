@@ -5,6 +5,7 @@ import DatePickerInput from '../DatePickerInput/index';
 import TextAreaInput from '../TextAreaInput/index';
 import FileUploader from '../FileUploader/index';
 import SuccessMessage from '../SuccessMessage/index';
+import Button from '../Button';
 
 //------------PLAN-----------------------------
 
@@ -31,10 +32,10 @@ import SuccessMessage from '../SuccessMessage/index';
 //TODO: Need conditional rendering - if person selects planter, only display planter fields, and for requesters, only display requester fields:
 //--Make state to toggle between form types ✅
 //--Make function to set that state ✅
-//--Make buttons to toggle
-//--Attach function to buttons
-//--Set input components to conditionally render where necessary
-//--Celebrate!
+//--Make buttons to toggle ✅
+//--Attach function to buttons ✅
+//--Have key within form state to flag which form and connect to buttons
+//--Set input components to conditionally render where necessary ✅
 
 //TODO: Need a place for the user to upload a photo! Use <input type='file' /> in the FileUploader component. ✅
 
@@ -63,7 +64,8 @@ function Form() {
     species: '',
     datePlanted: new Date(),
     comment: '',
-    treePic: './sampletree.jpg'
+    treePic: './sampletree.jpg',
+    requester: false
   });
 
   //State that manages whether the form renders the questions specific to planters or requesters:
@@ -72,9 +74,14 @@ function Form() {
   //State to show success message after form submits:
   const [showSuccess, setShowSuccess] = useState(false);
 
-  //Function to handle switching between requester and planter (default for now is planter):
-  function toggleFormType() {
-    setRequester(!requester);
+  //Functions to handle switching between requester and planter (default is planter):
+  function toggleFormTypeRequester() {
+    setRequester(true);
+    console.log('requester state: ', requester);
+  }
+  function toggleFormTypePlanter() {
+    setRequester(false);
+    console.log('requester state: ', requester);
   }
 
   //Function to handle form entry:
@@ -90,7 +97,8 @@ function Form() {
       species: inputName === 'species' ? inputValue : form.species,
       datePlanted: inputName === 'datePlanted' ? inputValue : form.datePlanted,
       comment: inputName === 'comment' ? inputValue : form.comment,
-      treePic: inputName === 'treePic' ? inputValue : form.treePic
+      treePic: inputName === 'treePic' ? inputValue : form.treePic,
+      requester: inputName === 'requester' ? inputValue : form.requester
     });
     console.log(inputName);
     console.log(inputValue);
@@ -129,6 +137,14 @@ function Form() {
 
   return (
     <form onSubmit={handleSubmit}>
+      <Button
+        buttonText="Click here if you would like to request tree(s) in an area"
+        handleClick={toggleFormTypeRequester}
+      />
+      <Button
+        buttonText="Click here if you would like to register tree(s) you've planted"
+        handleClick={toggleFormTypePlanter}
+      />
       <label htmlFor="fName">First name:</label>
       <TextInputField
         placeholder={'Optional'}
@@ -167,30 +183,36 @@ function Form() {
         handleChange={handleChange}
       />
       <br />
-      <label htmlFor="species">Tree species:</label>
-      <DropdownInputField
-        name={'species'}
-        value={form.species}
-        handleChange={handleChange}
-      />
+      {!requester ? <label htmlFor="species">Tree species:</label> : null}
+      {!requester ? (
+        <DropdownInputField
+          name={'species'}
+          value={form.species}
+          handleChange={handleChange}
+        />
+      ) : null}
       <br />
-      <label htmlFor="datePlanted">Date planted:</label>
-      <DatePickerInput
-        name={'datePlanted'}
-        value={form.datePlanted}
-        handleChange={handleChange}
-      />
+      {!requester ? <label htmlFor="datePlanted">Date planted:</label> : null}
+      {!requester ? (
+        <DatePickerInput
+          name={'datePlanted'}
+          value={form.datePlanted}
+          handleChange={handleChange}
+        />
+      ) : null}
       <br />
       <label htmlFor="treePic">Upload a photo:</label>
       <FileUploader name={'treePic'} handleChange={handleChange} />
       <br />
-      <label htmlFor="comment">Details:</label>
-      <TextAreaInput
-        placeholder={'More details about your tree request'}
-        name={'comment'}
-        value={form.comment}
-        handleChange={handleChange}
-      />
+      {requester ? <label htmlFor="comment">Details:</label> : null}
+      {requester ? (
+        <TextAreaInput
+          placeholder={'More details about your tree request'}
+          name={'comment'}
+          value={form.comment}
+          handleChange={handleChange}
+        />
+      ) : null}
       <br />
       <SuccessMessage showSuccess={showSuccess} />
       <br />
