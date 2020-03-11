@@ -52,6 +52,8 @@ import Button from '../Button';
 
 //TODO: Show a success message once the form is submitted ✅
 
+//TODO: Add comment area for planter to write dedication/message/etc. ✅
+
 //--------------CODE------------------------------
 
 function Form() {
@@ -213,10 +215,25 @@ function Form() {
         <label htmlFor="treePic">Upload a photo:</label>
         <FileUploader name={'treePic'} handleChange={handleChange} />
         <br />
-        {requester ? <label htmlFor="comment">Details:</label> : null}
+        {requester ? (
+          <label htmlFor="comment">Details of request:</label>
+        ) : null}
         {requester ? (
           <TextAreaInput
             placeholder={'More details about your tree request'}
+            name={'comment'}
+            value={form.comment}
+            handleChange={handleChange}
+          />
+        ) : null}
+        {!requester ? (
+          <label htmlFor="comment">Details about your tree:</label>
+        ) : null}
+        {!requester ? (
+          <TextAreaInput
+            placeholder={
+              'This can include a message or dedication to a loved one that you would like displayed with your tree on the map'
+            }
             name={'comment'}
             value={form.comment}
             handleChange={handleChange}
