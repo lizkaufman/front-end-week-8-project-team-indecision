@@ -1,5 +1,7 @@
 import React from 'react';
 
+//TODO: stretch - can add freetype for other
+
 const treeSpecies = [
   'Alder',
   'Apple',
@@ -29,7 +31,8 @@ const treeSpecies = [
   'Spindle',
   'Whitebeam',
   'Willow',
-  'Yew'
+  'Yew',
+  'Other'
 ];
 
 function DropdownInputField({ name, value, handleChange }) {
