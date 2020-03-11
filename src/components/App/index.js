@@ -166,11 +166,15 @@ function App() {
     //--we set these states in this handleClick ✅
     //--and then pass these states down to <Form /> via props ✅
     //--in Form, we add these to the form state object - need to add new keys for these and match them up w/ the sql stuff ✅
+    //--add to the fetch (latitude and longitude) ✅
     //--test
     allowTreeAdd && setTrees([...trees, newTree]);
-    setCurrentLat(lat);
-    setCurrentLong(lng);
-    console.log('lat: ', lat, 'long: ', long);
+    const stringLat = lat.toString();
+    const stringLong = lng.toString();
+    setCurrentLat(stringLat);
+    setCurrentLong(stringLong);
+    console.log(typeof stringLat, typeof stringLong, typeof 3);
+    console.log('state: ', currentLat, currentLong);
   }
 
   function getMyGeolocation() {

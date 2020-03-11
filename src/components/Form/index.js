@@ -143,21 +143,6 @@ function Form({ currentLat, currentLong }) {
     event.preventDefault();
     console.log(`You've pressed submit!`);
 
-    // const usersBody = {
-    //   method: 'POST',
-    //   headers: { 'Content-Type': 'application/json' },
-    //   body: JSON.stringify({
-    //     firstname: `${form.fName}`,
-    //     lastname: `${form.lName}`,
-    //     organisation: `${form.org}`,
-    //     email: `${form.email}`,
-    //     phonenumber: `${form.phone}`
-    //   })
-    // };
-    // fetch('192.168.0.71:5000/users', usersBody)
-    //   .then(res => res.json())
-    //   .then(data => console.log(data));
-
     fetch('http://192.168.0.71:5000/users', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -183,7 +168,9 @@ function Form({ currentLat, currentLong }) {
         dateplanted: `${form.datePlanted}`,
         comment: `${form.comment}`,
         status: `${form.requester}`,
-        image: `${form.treePic}`
+        image: `${form.treePic}`,
+        latitude: `${form.latitude}`,
+        longitude: `${form.longitude}`
       })
     })
       .then(res => res.json())
