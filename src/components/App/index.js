@@ -9,6 +9,7 @@ import {
   TwitterHashtagButton
 } from 'react-twitter-embed';
 import bhamPoly from '../../const_wgs84';
+import Footer from '../Footer/index';
 
 // Set global vars
 const bhamPosition = [52.4862, -1.8904];
@@ -34,7 +35,7 @@ const greenTreeMarker = new L.icon({
 });
 
 function App() {
-  const [trees, setTrees] = useState(dummyData);
+  const [trees, setTrees] = useState([]);
 
   //states to manage current tree lat/long:
   const [currentLat, setCurrentLat] = useState(null);
@@ -103,7 +104,7 @@ function App() {
       maxZoom={16}
       minZoom={8}
       onclick={handleClick}
-      style={{ border: "2px solid #40531B", borderRadius: "10px" }}
+      style={{ border: '2px solid #40531B', borderRadius: '10px' }}
     >
       <ReactLeafletSearch
         position="topleft"
@@ -176,7 +177,7 @@ function App() {
       <div className={css.mapStyle}>
         {map}
         <button
-          className={css.addTreeButton + " " + buttonBorder}
+          className={css.addTreeButton + ' ' + buttonBorder}
           onClick={toggleAllowTreeAdd}
         >
           Add tree
@@ -192,39 +193,13 @@ function App() {
         <TwitterTimelineEmbed
           sourceType="profile"
           screenName="WestMids_CA"
-          options={{ width: "600px", height: "900px", borderRadius: "10px" }}
+          options={{ width: '600px', height: '900px', borderRadius: '10px' }}
         />
       </div>
       <div className={css.twitterHashTagButton}>
         <TwitterHashtagButton tag={'NeedsATree'} />
       </div>
-      <footer>
-        <a href="https://www.wmca.org.uk/careers?_ga=2.233332958.1505638702.1583852010-1790124967.1583750647">
-          Jobs
-        </a>
-        <a href="https://www.wmca.org.uk/policies?_ga=2.261120205.1505638702.1583852010-1790124967.1583750647">
-          Policies
-        </a>
-        <a href="https://www.wmca.org.uk/documents?_ga=2.261120205.1505638702.1583852010-1790124967.1583750647">
-          Documents
-        </a>
-        <a href="https://governance.wmca.org.uk/?_ga=2.261120205.1505638702.1583852010-1790124967.1583750647">
-          Committee meetings
-        </a>
-        <a href="https://www.wmca.org.uk/contact-us?_ga=2.261120205.1505638702.1583852010-1790124967.1583750647">
-          Contact us
-        </a>
-        <a href="https://www.wmca.org.uk/freedom-of-information?_ga=2.266470478.1505638702.1583852010-1790124967.1583750647">
-          Freedom of information
-        </a>
-        <a href="https://www.wmca.org.uk/procurement?_ga=2.266470478.1505638702.1583852010-1790124967.1583750647">
-          Procurement
-        </a>
-        <a href="https://www.wmca.org.uk/media-assets?_ga=2.266470478.1505638702.1583852010-1790124967.1583750647">
-          Media assets
-        </a>
-        <p>© 2020 West Midlands Combined Authority and School of Code</p>
-      </footer>
+      <Footer />
     </div>
   );
 }
