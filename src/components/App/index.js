@@ -11,99 +11,7 @@ import {
 import bhamPoly from "../../const_wgs84";
 
 // Set global vars
-let allowTreeAdd = false;
 const bhamPosition = [52.4862, -1.8904];
-
-const dummyData = [
-  {
-    lat: 52.862,
-    lon: -1.904,
-    species: "larch",
-    status: "planted",
-    photo:
-      "https://upload.wikimedia.org/wikipedia/commons/e/eb/Ash_Tree_-_geograph.org.uk_-_590710.jpg"
-  },
-  {
-    lat: 52.62,
-    lon: -1.04,
-    species: "elm",
-    status: "requested",
-    photo:
-      "https://upload.wikimedia.org/wikipedia/commons/e/eb/Ash_Tree_-_geograph.org.uk_-_590710.jpg"
-  },
-  {
-    lat: 52.2,
-    lon: -1.4,
-    species: "ash",
-    status: "planted",
-    photo:
-      "https://upload.wikimedia.org/wikipedia/commons/e/eb/Ash_Tree_-_geograph.org.uk_-_590710.jpg"
-  },
-  {
-    lat: 52.4862,
-    lon: -1.8904,
-    species: "birch",
-    status: "requested",
-    photo:
-      "https://upload.wikimedia.org/wikipedia/commons/e/eb/Ash_Tree_-_geograph.org.uk_-_590710.jpg"
-  },
-  {
-    lat: 52.862,
-    lon: -1.8904,
-    species: "larch",
-    status: "planted",
-    photo:
-      "https://upload.wikimedia.org/wikipedia/commons/e/eb/Ash_Tree_-_geograph.org.uk_-_590710.jpg"
-  },
-  {
-    lat: 52.62,
-    lon: -1.8904,
-    species: "elm",
-    status: "requested",
-    photo:
-      "https://upload.wikimedia.org/wikipedia/commons/e/eb/Ash_Tree_-_geograph.org.uk_-_590710.jpg"
-  },
-  {
-    lat: 52.2,
-    lon: -1.8904,
-    species: "ash",
-    status: "requested",
-    photo:
-      "https://upload.wikimedia.org/wikipedia/commons/e/eb/Ash_Tree_-_geograph.org.uk_-_590710.jpg"
-  },
-  {
-    lat: 52.4862,
-    lon: -1.8904,
-    species: "birch",
-    status: "planted",
-    photo:
-      "https://upload.wikimedia.org/wikipedia/commons/e/eb/Ash_Tree_-_geograph.org.uk_-_590710.jpg"
-  },
-  {
-    lat: 52.4862,
-    lon: -1.904,
-    species: "larch",
-    status: "planted",
-    photo:
-      "https://upload.wikimedia.org/wikipedia/commons/e/eb/Ash_Tree_-_geograph.org.uk_-_590710.jpg"
-  },
-  {
-    lat: 52.4862,
-    lon: -1.04,
-    species: "elm",
-    status: "requested",
-    photo:
-      "https://upload.wikimedia.org/wikipedia/commons/e/eb/Ash_Tree_-_geograph.org.uk_-_590710.jpg"
-  },
-  {
-    lat: 52.4862,
-    lon: -1.4,
-    species: "ash",
-    status: "planted",
-    photo:
-      "https://upload.wikimedia.org/wikipedia/commons/e/eb/Ash_Tree_-_geograph.org.uk_-_590710.jpg"
-  }
-];
 
 const redTreeMarker = new L.icon({
   iconUrl: require("../../img/icon_red.png"),
@@ -125,12 +33,14 @@ const greenTreeMarker = new L.icon({
   iconSize: new L.Point(15, 15)
 });
 
-function toggleAllowTreeAdd() {
-  allowTreeAdd = !allowTreeAdd;
-}
-
 function App() {
-  const [trees, setTrees] = useState(dummyData);
+  const [trees, setTrees] = useState([]);
+  const [allowTreeAdd, setAllowTreeAdd] = useState(false);
+
+  function toggleAllowTreeAdd() {
+    setAllowTreeAdd(!allowTreeAdd);
+  }
+
   const requestOptions = {
     method: "GET",
     headers: { "Content-Type": "application/json" }
@@ -146,7 +56,10 @@ function App() {
   console.log(trees);
 
   function handleClick(e) {
-    const { lat, lng } = e.latlng;
+    allowTreeAdd && addATree(e.latlng);
+  }
+
+  function addATree({ lat, lng }) {
     const newTree = {
       latitude: lat,
       longitude: lng,
@@ -156,7 +69,8 @@ function App() {
       image:
         "https://upload.wikimedia.org/wikipedia/commons/e/eb/Ash_Tree_-_geograph.org.uk_-_590710.jpg"
     };
-    allowTreeAdd && setTrees([...trees, newTree]);
+    setTrees([...trees, newTree]);
+    return;
   }
 
   function getMyGeolocation() {
@@ -164,9 +78,7 @@ function App() {
     function geoSuccess(pos) {
       myLat = pos.coords.latitude;
       myLon = pos.coords.longitude;
-      allowTreeAdd = !allowTreeAdd;
-      handleClick({ latlng: { lat: myLat, lng: myLon } });
-      allowTreeAdd = !allowTreeAdd;
+      addATree({ lat: myLat, lng: myLon });
     }
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(geoSuccess);
@@ -180,6 +92,7 @@ function App() {
       maxZoom={16}
       minZoom={8}
       onclick={handleClick}
+      style={{ border: "2px solid #40531B", borderRadius: "10px" }}
     >
       <ReactLeafletSearch
         position="topleft"
@@ -234,6 +147,10 @@ function App() {
     </Map>
   );
 
+  const buttonBorder = allowTreeAdd
+    ? css.addTreeButtonClicked
+    : css.addTreeButtonNotClicked;
+
   return (
     <div className={css.container}>
       <header>
@@ -247,7 +164,10 @@ function App() {
 
       <div className={css.mapStyle}>
         {map}
-        <button className={css.addTreeButton} onClick={toggleAllowTreeAdd}>
+        <button
+          className={css.addTreeButton + " " + buttonBorder}
+          onClick={toggleAllowTreeAdd}
+        >
           Add tree
         </button>
         <button className={css.addTreeHereButton} onClick={getMyGeolocation}>
@@ -261,7 +181,7 @@ function App() {
         <TwitterTimelineEmbed
           sourceType="profile"
           screenName="WestMids_CA"
-          options={{ width: "600px", height: "900px" }}
+          options={{ width: "600px", height: "900px", borderRadius: "10px" }}
         />
       </div>
       <div className={css.twitterHashTagButton}>

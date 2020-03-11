@@ -1,12 +1,13 @@
-import React, { useState } from 'react';
-import TextInputField from '../TextInputField/index';
-import DropdownInputField from '../DropdownInputField/index';
-import DatePickerInput from '../DatePickerInput/index';
-import TextAreaInput from '../TextAreaInput/index';
-import FileUploader from '../FileUploader/index';
-import SuccessMessage from '../SuccessMessage/index';
-import Button from '../Button';
-import FormPrivacyOptions from '../FormPrivacyOptions/index';
+import React, { useState } from "react";
+import TextInputField from "../TextInputField/index";
+import DropdownInputField from "../DropdownInputField/index";
+import DatePickerInput from "../DatePickerInput/index";
+import TextAreaInput from "../TextAreaInput/index";
+import FileUploader from "../FileUploader/index";
+import SuccessMessage from "../SuccessMessage/index";
+import Button from "../Button";
+import FormPrivacyOptions from "../FormPrivacyOptions/index";
+import css from "./Form.module.css";
 
 //------------PLAN-----------------------------
 
@@ -64,14 +65,14 @@ function Form() {
 
   //State to manage form content:
   const [form, setForm] = useState({
-    fName: '',
-    lName: '',
-    org: '',
-    email: '',
-    phone: '',
-    species: '',
+    fName: "",
+    lName: "",
+    org: "",
+    email: "",
+    phone: "",
+    species: "",
     datePlanted: new Date(),
-    comment: '',
+    comment: "",
     treePic: `${file}`,
     requester: false
   });
@@ -86,13 +87,13 @@ function Form() {
   function toggleFormTypeRequester() {
     setRequester(true);
     setForm({ requester: true });
-    console.log('requester state: ', requester);
+    console.log("requester state: ", requester);
     console.log(form.requester);
   }
   function toggleFormTypePlanter() {
     setRequester(false);
     setForm({ requester: false });
-    console.log('requester state: ', requester);
+    console.log("requester state: ", requester);
     console.log(form.requester);
   }
   //The console logs will be wrong the first time you press. Press it again and they'll be right. It's because the console.log is always one step behind the actual state change.
@@ -102,16 +103,16 @@ function Form() {
     const inputValue = event.target.value;
     const inputName = event.target.name;
     setForm({
-      fName: inputName === 'fName' ? inputValue : form.fName,
-      lName: inputName === 'lName' ? inputValue : form.lName,
-      org: inputName === 'org' ? inputValue : form.org,
-      email: inputName === 'email' ? inputValue : form.email,
-      phone: inputName === 'phone' ? inputValue : form.phone,
-      species: inputName === 'species' ? inputValue : form.species,
-      datePlanted: inputName === 'datePlanted' ? inputValue : form.datePlanted,
-      comment: inputName === 'comment' ? inputValue : form.comment,
-      treePic: inputName === 'treePic' ? inputValue : form.treePic,
-      requester: inputName === 'requester' ? inputValue : form.requester
+      fName: inputName === "fName" ? inputValue : form.fName,
+      lName: inputName === "lName" ? inputValue : form.lName,
+      org: inputName === "org" ? inputValue : form.org,
+      email: inputName === "email" ? inputValue : form.email,
+      phone: inputName === "phone" ? inputValue : form.phone,
+      species: inputName === "species" ? inputValue : form.species,
+      datePlanted: inputName === "datePlanted" ? inputValue : form.datePlanted,
+      comment: inputName === "comment" ? inputValue : form.comment,
+      treePic: inputName === "treePic" ? inputValue : form.treePic,
+      requester: inputName === "requester" ? inputValue : form.requester
     });
     console.log(inputName);
     console.log(inputValue);
@@ -125,7 +126,7 @@ function Form() {
     const imgFile = event.target.files[0];
     setFile(imgFile);
     console.log(imgFile);
-    console.log('file state: ', file);
+    console.log("file state: ", file);
   }
 
   //Function to handle file adding:
@@ -156,9 +157,9 @@ function Form() {
     //   .then(res => res.json())
     //   .then(data => console.log(data));
 
-    fetch('http://192.168.0.71:5000/users', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+    fetch("http://192.168.0.71:5000/users", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         firstname: `${form.fName}`,
         lastname: `${form.lName}`,
@@ -170,12 +171,12 @@ function Form() {
       .then(res => res.json())
       .then(data => console.log(data))
       .catch(error => {
-        console.error('Error: Failed to fetch.');
+        console.error("Error: Failed to fetch.");
       });
 
-    fetch('http://192.168.0.71:5000/trees', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+    fetch("http://192.168.0.71:5000/trees", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         species: `${form.species}`,
         dateplanted: `${form.datePlanted}`,
@@ -187,7 +188,7 @@ function Form() {
       .then(res => res.json())
       .then(data => console.log(data))
       .catch(error => {
-        console.error('Error: Failed to fetch.');
+        console.error("Error: Failed to fetch.");
       });
 
     setShowSuccess(true);
@@ -208,38 +209,38 @@ function Form() {
       <form onSubmit={handleSubmit}>
         <label htmlFor="fName">First name:</label>
         <TextInputField
-          placeholder={'Optional'}
-          name={'fName'}
+          placeholder={"Optional"}
+          name={"fName"}
           value={form.fName}
           handleChange={handleChange}
         />
         <br />
         <label htmlFor="lName">Last Name:</label>
         <TextInputField
-          placeholder={'Optional'}
-          name={'lName'}
+          placeholder={"Optional"}
+          name={"lName"}
           value={form.lName}
           handleChange={handleChange}
         />
         <br />
         <label htmlFor="org">Organisation:</label>
         <TextInputField
-          placeholder={'Optional'}
-          name={'org'}
+          placeholder={"Optional"}
+          name={"org"}
           value={form.org}
           handleChange={handleChange}
         />
         <br />
         <label htmlFor="email">Email:</label>
         <TextInputField
-          name={'email'}
+          name={"email"}
           value={form.email}
           handleChange={handleChange}
         />
         <br />
         <label htmlFor="phone">Telephone number:</label>
         <TextInputField
-          name={'phone'}
+          name={"phone"}
           value={form.phone}
           handleChange={handleChange}
         />
@@ -247,7 +248,7 @@ function Form() {
         {!requester ? <label htmlFor="species">Tree species:</label> : null}
         {!requester ? (
           <DropdownInputField
-            name={'species'}
+            name={"species"}
             value={form.species}
             handleChange={handleChange}
           />
@@ -256,22 +257,22 @@ function Form() {
         {!requester ? <label htmlFor="datePlanted">Date planted:</label> : null}
         {!requester ? (
           <DatePickerInput
-            name={'datePlanted'}
+            name={"datePlanted"}
             value={form.datePlanted}
             handleChange={handleChange}
           />
         ) : null}
         <br />
         <label htmlFor="treePic">Upload a photo:</label>
-        <FileUploader name={'treePic'} handleFile={handleFile} />
+        <FileUploader name={"treePic"} handleFile={handleFile} />
         <br />
         {requester ? (
           <label htmlFor="comment">Details of request:</label>
         ) : null}
         {requester ? (
           <TextAreaInput
-            placeholder={'More details about your tree request'}
-            name={'comment'}
+            placeholder={"More details about your tree request"}
+            name={"comment"}
             value={form.comment}
             handleChange={handleChange}
           />
@@ -282,9 +283,9 @@ function Form() {
         {!requester ? (
           <TextAreaInput
             placeholder={
-              'This can include a message or dedication to a loved one that you would like displayed with your tree on the map'
+              "This can include a message or dedication to a loved one that you would like displayed with your tree on the map"
             }
-            name={'comment'}
+            name={"comment"}
             value={form.comment}
             handleChange={handleChange}
           />
