@@ -6,6 +6,7 @@ import TextAreaInput from '../TextAreaInput/index';
 import FileUploader from '../FileUploader/index';
 import SuccessMessage from '../SuccessMessage/index';
 import Button from '../Button';
+import FormPrivacyOptions from '../FormPrivacyOptions/index';
 
 //------------PLAN-----------------------------
 
@@ -52,6 +53,7 @@ import Button from '../Button';
 
 //TODO: Show a success message once the form is submitted ✅
 
+//TODO: Privacy options to let the user control how much detail they want to show on their tree pins (more detailed plan in component FormPrivacyOptions) - conditionally rendered for planters
 //TODO: Add comment area for planter to write dedication/message/etc. ✅
 
 //--------------CODE------------------------------
@@ -240,6 +242,7 @@ function Form() {
           />
         ) : null}
         <br />
+        {!requester ? <FormPrivacyOptions /> : null}
         <SuccessMessage showSuccess={showSuccess} />
         <br />
         <input type="submit" value="submit" />
