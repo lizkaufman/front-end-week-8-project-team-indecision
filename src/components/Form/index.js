@@ -124,24 +124,59 @@ function Form() {
   // }
 
   //Function to handle form submission:
-  function handleSubmit(event) {
+  async function handleSubmit(event) {
     event.preventDefault();
     console.log(`You've pressed submit!`);
-    /*TODO: DRAFT OF FETCH TO IMPLEMENT ONCE DATABASE IS READY:
-    fetch('linktoserver', {
-        method: 'post',
-        body: {
-            'fName': `${form.fName}`,
-            'lName': `${form.lName}`,
-            'org': `${form.org}`,
-            'email': `${form.email}`,
-            'phone': `${form.phone}`,
-            'species': `${form.species}`,
-            'datePlanted': `${form.datePlanted}`,
-            'comment': `${form.comment}`
-        }
-    }).then(res => res.json()).then(data=>console.log(data)).catch((error) => {console.error('Error: Failed to fetch.')});
-    */
+
+    // const usersBody = {
+    //   method: 'POST',
+    //   headers: { 'Content-Type': 'application/json' },
+    //   body: JSON.stringify({
+    //     firstname: `${form.fName}`,
+    //     lastname: `${form.lName}`,
+    //     organisation: `${form.org}`,
+    //     email: `${form.email}`,
+    //     phonenumber: `${form.phone}`
+    //   })
+    // };
+    // fetch('192.168.0.71:5000/users', usersBody)
+    //   .then(res => res.json())
+    //   .then(data => console.log(data));
+
+    fetch('http://192.168.0.71:5000/users', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        firstname: `${form.fName}`,
+        lastname: `${form.lName}`,
+        organisation: `${form.org}`,
+        email: `${form.email}`,
+        phonenumber: `${form.phone}`
+      })
+    })
+      .then(res => res.json())
+      .then(data => console.log(data))
+      .catch(error => {
+        console.error('Error: Failed to fetch.');
+      });
+
+    fetch('http://192.168.0.71:5000/trees', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        species: `${form.species}`,
+        dateplanted: `${form.datePlanted}`,
+        comment: `${form.comment}`,
+        status: `${form.requester}`,
+        image: `${form.treePic}`
+      })
+    })
+      .then(res => res.json())
+      .then(data => console.log(data))
+      .catch(error => {
+        console.error('Error: Failed to fetch.');
+      });
+
     setShowSuccess(true);
   }
 
