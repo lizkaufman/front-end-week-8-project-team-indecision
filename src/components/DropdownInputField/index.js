@@ -1,4 +1,5 @@
-import React from 'react';
+import React from "react";
+import css from "../Form/Form.module.css";
 
 //TODO: stretch - can add freetype for other
 
@@ -37,9 +38,14 @@ const treeSpecies = [
 
 function DropdownInputField({ name, value, handleChange }) {
   return (
-    <select name={name} value={value} onChange={handleChange}>
+    <select
+      name={name}
+      value={value}
+      onChange={handleChange}
+      className={css.selectTreeSpecies}
+    >
       {treeSpecies.map(species => (
-        <option value={species} key={species}>
+        <option className={css.selectTreeSpecies} value={species} key={species}>
           {species}
         </option>
       ))}

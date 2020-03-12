@@ -1,0 +1,63 @@
+.formBackground {
+  background-color: #afbc88;
+  border-radius: 10px;
+  padding: 1em;
+}
+
+.topButtonsOnForm {
+  text-align: center;
+}
+
+.topButtonsOnForm button {
+  width: 200px;
+}
+
+.topButtonsOnForm button:hover {
+  background-color: #f7bc8a;
+}
+
+.buttonIsSelected {
+  background-color: #ea7006;
+}
+
+.buttonNotSelected {
+  background-color: #618b4a;
+}
+
+.theForm {
+  display: grid;
+  grid-template-columns: 135px 150px;
+  margin-top: 1em;
+}
+
+.formButton {
+  border-radius: 10px;
+  border: none;
+  margin: 0.21em auto;
+  padding: 0.5em;
+}
+
+.formBackground label {
+  grid-column: 1;
+  margin-top: 5px;
+}
+
+.formBackground input {
+  border-radius: 10px;
+  border: 2px solid #618b4a;
+  grid-column: 2;
+  padding: 0.5em;
+}
+
+.submitButton {
+  margin-top: 1em;
+  border-radius: 10px;
+  background-color: #ea7006;
+  grid-column: 2;
+}
+
+.selectTreeSpecies {
+  border-radius: 10px;
+  border: 2px solid #618b4a;
+  padding: 0.5em;
+}
