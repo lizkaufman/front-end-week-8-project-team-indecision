@@ -1,0 +1,11 @@
+.impact {
+  background-color: #afbc88;
+  border-radius: 0.5em;
+  margin-top: 35em;
+  position: relative;
+}
+
+p {
+  padding: 1em;
+  margin-left: 2em;
+}
