@@ -149,7 +149,7 @@ function App() {
                   <img
                     style={{ margin: '0 auto', display: 'block' }}
                     width="100px"
-                    src={x.image}
+                    src={require('../../img/tree_silhouette.png')}
                     alt={x.species}
                   />
                 )}
