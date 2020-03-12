@@ -1,3 +1,7 @@
+form {
+  margin: 10px;
+}
+
 .formBackground {
   background-color: #afbc88;
   border-radius: 10px;
@@ -6,12 +10,10 @@
 
 .topButtonsOnForm {
   text-align: center;
-  display: grid;
-  grid-row: 50% 50%;
 }
 
 .topButtonsOnForm button {
-  width: 250px;
+  width: 100%;
 }
 
 .topButtonsOnForm button:hover {
@@ -40,7 +42,7 @@
 
 .theForm {
   display: grid;
-  grid-template-columns: 135px 150px;
+  grid-template-columns: 50% 50%;
   margin-top: 1em;
 }
 
