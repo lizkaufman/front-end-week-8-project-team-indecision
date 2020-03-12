@@ -12,6 +12,7 @@ function Impact({ count }) {
 
   return (
     <div className={css.impact}>
+
       <p id="tree-count">
         <span
           className={cn(css.treeCount, { [css.animate]: isWiggling })}
@@ -31,6 +32,7 @@ function Impact({ count }) {
           {5.8967 * count}
         </div>{' '}
         kg of CO2 per year.
+
       </p>
     </div>
   );

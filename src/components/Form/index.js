@@ -232,6 +232,11 @@ function Form({
             handleClick={toggleFormTypePlanter}
             buttonSelected={!buttonSelected}
           />
+          {!requester ? (
+            <div className={css.treePlanterMessage}>
+              <p>Where did you plant your tree?</p>
+            </div>
+          ) : null}
           <div className={css.mapButtons}>
             {!requester ? (
               <Button
@@ -248,7 +253,9 @@ function Form({
               />
             ) : null}
           </div>
+          {/* close of map buttons div */}
         </div>
+        {/* close of top buttons div */}
         <form onSubmit={handleSubmit} className={css.theForm}>
           <label htmlFor="fName">First name:</label>
           <TextInputField
@@ -279,6 +286,7 @@ function Form({
             name={'email'}
             value={form.email}
             handleChange={handleChange}
+            placeholder={'Required'}
           />
           <br />
           <label htmlFor="phone">Telephone number:</label>
@@ -286,6 +294,7 @@ function Form({
             name={'phone'}
             value={form.phone}
             handleChange={handleChange}
+            placeholder={'Required'}
           />
           <br />
           {!requester ? <label htmlFor="species">Tree species:</label> : null}
@@ -327,9 +336,7 @@ function Form({
           ) : null}
           {!requester ? (
             <TextAreaInput
-              placeholder={
-                'This can include a message or dedication to a loved one that you would like displayed with your tree on the map'
-              }
+              placeholder={'Optional - message or dedication'}
               name={'comment'}
               value={form.comment}
               handleChange={handleChange}
@@ -341,7 +348,7 @@ function Form({
           ) : null}
           <SuccessMessage showSuccess={showSuccess} />
           <br />
-          <input type="submit" value="submit" className={css.submitButton} />
+          <input type="submit" value="Submit" className={css.submitButton} />
         </form>
       </div>
     </>
