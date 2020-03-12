@@ -10,6 +10,7 @@ import {
 } from 'react-twitter-embed';
 import bhamPoly from '../../const_wgs84';
 import Footer from '../Footer/index';
+import Impact from '../Impact';
 
 // Set global vars
 const bhamPosition = [52.4862, -1.8904];
@@ -51,7 +52,7 @@ function App() {
     headers: { 'Content-Type': 'application/json' }
   };
   useEffect(() => {
-    fetch('http://192.168.0.71:5000/trees', requestOptions)
+    fetch('http://127.0.0.1:5000/trees', requestOptions)
       .then(res => res.json())
       .then(x => {
         setTrees(x);
@@ -176,15 +177,18 @@ function App() {
 
       <div className={css.mapStyle}>
         {map}
-        <button
-          className={css.addTreeButton + ' ' + buttonBorder}
-          onClick={toggleAllowTreeAdd}
-        >
-          Add tree
-        </button>
-        <button className={css.addTreeHereButton} onClick={getMyGeolocation}>
-          Add a tree at my current location
-        </button>
+        <div>
+          <Impact count={trees.length} />
+          <button
+            className={css.addTreeButton + ' ' + buttonBorder}
+            onClick={toggleAllowTreeAdd}
+          >
+            Add tree
+          </button>
+          <button className={css.addTreeHereButton} onClick={getMyGeolocation}>
+            Add a tree at my current location
+          </button>
+        </div>
       </div>
       <div className={css.treeEntryForm}>
         <Form currentLat={currentLat} currentLong={currentLong} />
