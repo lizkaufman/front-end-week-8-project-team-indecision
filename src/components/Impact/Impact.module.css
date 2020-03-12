@@ -1,9 +1,6 @@
 .impact {
   background-color: #afbc88;
   border-radius: 0.5em;
-  margin-top: 40em;
-  margin-left: -440px;
-  margin-right: 100px;
   border-color: rgb(56, 68, 44);
   border-style: solid;
 }
@@ -32,4 +29,14 @@ p {
   font-size: 20px;
   font-weight: bold;
   margin: 10px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  text-align: center;
+  margin-top: 10px;
+}
+
+p {
+  padding: 0 10px;
 }

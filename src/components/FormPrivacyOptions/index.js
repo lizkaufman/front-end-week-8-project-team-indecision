@@ -4,6 +4,7 @@
 // -- Need to not show phone number/email by default! These need to not show by default regardless of this setting.
 
 import React, { useState } from 'react';
+import css from '../Form/Form.module.css';
 
 function FormPrivacyOptions() {
   const [change, setChange] = useState(0);
@@ -11,7 +12,9 @@ function FormPrivacyOptions() {
     setChange(changeEvent.target.value);
   }
   return (
-    <div className="radio">
+    <div className={css.radio}>
+      <label>Privacy options:</label>
+      <br />
       <input
         type="radio"
         name="radio-btn"
