@@ -336,7 +336,9 @@ function Form({
             />
           ) : null}
           <br />
-          {!requester ? <FormPrivacyOptions /> : null}
+          {!requester ? (
+            <FormPrivacyOptions className={css.privacyOptions} />
+          ) : null}
           <SuccessMessage showSuccess={showSuccess} />
           <br />
           <input type="submit" value="submit" className={css.submitButton} />
