@@ -30,7 +30,7 @@ body {
 
 .leaflet-container {
   height: 80vh;
-  width: 39vw;
+  /* width: 39vw; */
 }
 
 #impact {
