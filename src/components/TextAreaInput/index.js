@@ -7,6 +7,7 @@ function TextAreaInput({ placeholder, name, value, handleChange }) {
       name={name}
       value={value}
       onChange={handleChange}
+      rows="3"
     ></textarea>
   );
 }
