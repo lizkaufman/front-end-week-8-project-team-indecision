@@ -3,7 +3,7 @@
 // -- STRETCH: individual controls for each part of data
 // -- Need to not show phone number/email by default! These need to not show by default regardless of this setting.
 
-import React, { useState } from "react";
+import React, { useState } from 'react';
 
 function FormPrivacyOptions() {
   const [change, setChange] = useState(0);
@@ -12,27 +12,29 @@ function FormPrivacyOptions() {
   }
   return (
     <div className="radio">
-      Click if you wish you Name and Tree information to be posted
       <input
         type="radio"
         name="radio-btn"
         value="option1"
         onChange={handleOptionChange}
       />
-      Click if you wish your Name, Tree and Dedication information to be posted
+      Display your name and tree details with your tree
+      <br />
       <input
         type="radio"
         name="radio-btn"
         value="option2"
         onChange={handleOptionChange}
       />
-      Click if you wish to remain Anonymous
+      Display your name, tree details, and dedication message with your tree
+      <br />
       <input
         type="radio"
         name="radio-btn"
         value="option2"
         onChange={handleOptionChange}
       />
+      Register your tree anonymously
     </div>
   );
 }
