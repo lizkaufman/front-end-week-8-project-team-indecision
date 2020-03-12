@@ -1,11 +1,35 @@
 .impact {
   background-color: #afbc88;
   border-radius: 0.5em;
-  margin-top: 35em;
-  position: relative;
+  margin-top: 40em;
+  margin-left: -440px;
+  margin-right: 100px;
+  border-color: rgb(56, 68, 44);
+  border-style: solid;
 }
 
 p {
   padding: 1em;
-  margin-left: 2em;
+  margin-left: 0.2em;
+  text-align: center;
+}
+
+.emissionCount {
+  background-color: whitesmoke;
+  text-align: center;
+  padding: 15px;
+  border-radius: 10px;
+  font-size: 20px;
+  font-weight: bold;
+  margin: 10px;
+}
+
+.treeCount {
+  background-color: whitesmoke;
+  text-align: center;
+  padding: 15px;
+  border-radius: 10px;
+  font-size: 20px;
+  font-weight: bold;
+  margin: 10px;
 }
