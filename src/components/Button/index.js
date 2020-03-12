@@ -1,13 +1,20 @@
-import React from "react";
-import css from "../Form/Form.module.css";
+import React from 'react';
+import css from '../Form/Form.module.css';
 
-function Button({ buttonText, handleClick, buttonSelected }) {
-  const formButtonSelectStateClass = buttonSelected
-    ? css.buttonIsSelected
-    : css.buttonNotSelected;
+function Button({
+  buttonText,
+  handleClick,
+  buttonSelected,
+  addToMapButtonColor,
+  myLocButtonColor
+}) {
+  const formButtonSelectStateClass =
+    buttonSelected || addToMapButtonColor || myLocButtonColor
+      ? css.buttonIsSelected
+      : css.buttonNotSelected;
   return (
     <button
-      className={css.formButton + " " + formButtonSelectStateClass}
+      className={css.formButton + ' ' + formButtonSelectStateClass}
       onClick={handleClick}
     >
       {buttonText}
