@@ -178,7 +178,7 @@ function App() {
       <div className={css.mapStyle}>
         {map}
         <div>
-          <Impact count={trees.length} />
+          <Impact id={css.impact} count={trees.length} />
         </div>
       </div>
       <div className={css.treeEntryForm}>

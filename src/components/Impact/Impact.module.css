@@ -1,11 +1,14 @@
 .impact {
   background-color: #afbc88;
   border-radius: 0.5em;
-  margin-top: 35em;
   position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  text-align: center;
+  margin-top: 10px;
 }
 
 p {
-  padding: 1em;
-  margin-left: 2em;
+  padding: 0 10px;
 }
