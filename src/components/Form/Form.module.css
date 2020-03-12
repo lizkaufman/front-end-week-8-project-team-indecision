@@ -1,5 +1,7 @@
 form {
   margin: 10px;
+  font-size: 0.8em;
+  padding-top: 10px;
 }
 
 .formBackground {
@@ -36,7 +38,7 @@ form {
 
 .mapButtons button {
   width: 115px;
-  margin: 10px;
+  margin: 0 10px;
   padding: 5px;
 }
 
@@ -80,4 +82,10 @@ form {
   border-radius: 10px;
   border: 2px solid #618b4a;
   padding: 0.5em;
+}
+
+.treePlanterMessage {
+  padding: 0;
+  margin: 0;
+  font-size: 0.8em;
 }
