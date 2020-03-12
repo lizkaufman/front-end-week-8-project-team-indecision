@@ -1,18 +1,38 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import cn from 'classnames';
 import css from './Impact.module.css';
 
 // source for tree co2 absorption: http://urbanforestrynetwork.org/benefits/air%20quality.htm
 function Impact({ count }) {
+  const [isWiggling, setIsWiggling] = useState(false);
+
+  useEffect(() => {
+    setIsWiggling(true);
+  }, [count]);
+
   return (
     <div className={css.impact}>
-      <p id={css.pTreesSoFar}>
-        <span className={css.treeCount}>{count}</span> trees have been planted
-        in the West Midlands Virtual Forest so far.
+
+      <p id="tree-count">
+        <span
+          className={cn(css.treeCount, { [css.animate]: isWiggling })}
+          onAnimationEnd={() => setIsWiggling(false)}
+        >
+          {count}
+        </span>{' '}
+        trees have been planted in the West Midlands Virtual Forest so far.
       </p>
-      <p className={css.pCo2}>
+      <p>
         These absorb approximately{' '}
-        <span className={css.emissionCount}>{5.8967 * count}</span> kg of CO2
-        per year.
+        <div
+          className={
+            css.jelloHorizontal + ' ' + (isWiggling ? css.animate : '')
+          }
+        >
+          {5.8967 * count}
+        </div>{' '}
+        kg of CO2 per year.
+
       </p>
     </div>
   );

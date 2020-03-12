@@ -4,6 +4,7 @@ import { Map, Marker, Popup, TileLayer, GeoJSON } from 'react-leaflet';
 import ReactLeafletSearch from 'react-leaflet-search';
 import L from 'leaflet';
 import Form from '../Form';
+import impactCss from '../Impact/Impact.module.css';
 import {
   TwitterTimelineEmbed,
   TwitterHashtagButton
@@ -124,7 +125,7 @@ function App() {
         style={{ color: 'darkgreen', fillColor: 'lightgreen', weight: 1 }}
       />
       {trees.map(x => {
-        if (x.longitude) {
+        if (x.longitude && x.longitude != 'undefined') {
           return (
             <Marker
               icon={x.status === 'Planted' ? greenTreeMarker : redTreeMarker}
