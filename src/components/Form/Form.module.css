@@ -6,10 +6,12 @@
 
 .topButtonsOnForm {
   text-align: center;
+  display: grid;
+  grid-row: 50% 50%;
 }
 
 .topButtonsOnForm button {
-  width: 200px;
+  width: 250px;
 }
 
 .topButtonsOnForm button:hover {
@@ -22,6 +24,18 @@
 
 .buttonNotSelected {
   background-color: #618b4a;
+}
+
+.mapButtons {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.mapButtons button {
+  width: 115px;
+  margin: 10px;
+  padding: 5px;
 }
 
 .theForm {

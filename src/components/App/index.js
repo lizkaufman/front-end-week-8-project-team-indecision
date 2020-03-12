@@ -179,19 +179,15 @@ function App() {
         {map}
         <div>
           <Impact count={trees.length} />
-          <button
-            className={css.addTreeButton + ' ' + buttonBorder}
-            onClick={toggleAllowTreeAdd}
-          >
-            Add tree
-          </button>
-          <button className={css.addTreeHereButton} onClick={getMyGeolocation}>
-            Add a tree at my current location
-          </button>
         </div>
       </div>
       <div className={css.treeEntryForm}>
-        <Form currentLat={currentLat} currentLong={currentLong} />
+        <Form
+          currentLat={currentLat}
+          currentLong={currentLong}
+          getMyGeolocation={getMyGeolocation}
+          toggleAllowTreeAdd={toggleAllowTreeAdd}
+        />
       </div>
       <div className={css.twitterFeed}>
         <TwitterTimelineEmbed
