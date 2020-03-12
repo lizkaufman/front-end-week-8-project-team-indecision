@@ -5,12 +5,15 @@ import css from './Impact.module.css';
 function Impact({ count }) {
   return (
     <div className={css.impact}>
-      <p id="tree-count">
-        <span className={css.treeCount}>{count}</span> trees have been planted in the West Midlands Virtual Forest so
-        far.
+      <p id={css.pTreesSoFar}>
+        <span className={css.treeCount}>{count}</span> trees have been planted
+        in the West Midlands Virtual Forest so far.
       </p>
-      <p>These absorb approximately <span className={css.emissionCount}>{5.8967 * count}</span> kg of CO2 per year.</p>
-
+      <p className={css.pCo2}>
+        These absorb approximately{' '}
+        <span className={css.emissionCount}>{5.8967 * count}</span> kg of CO2
+        per year.
+      </p>
     </div>
   );
 }
