@@ -46,6 +46,10 @@ form {
   margin-top: 1em;
 }
 
+.radio {
+  grid-column: 1 / 3;
+}
+
 .formButton {
   border-radius: 10px;
   border: none;
