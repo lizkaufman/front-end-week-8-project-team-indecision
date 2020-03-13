@@ -32,8 +32,8 @@ function Impact({ count }) {
             (isWiggling ? css.animate : "")
           }
         >
-          {(5.8967 * count).toFixed(1)}
-        </div>{" "}
+          {Math.floor(5.8967 * count)}
+        </div>{' '}
         kg of CO2 per year.
       </p>
     </div>
