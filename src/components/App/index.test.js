@@ -1,9 +1,32 @@
 import React from 'react';
-import { render } from '@testing-library/react';
-import App from './App';
+import { render, unmountComponentAtNode } from '@testing-library/react';
+import App from './index';
+import Form from '../Form/index';
+import Impact from '../Impact/index';
 
-test('renders learn react link', () => {
-  const { getByText } = render(<App />);
-  const linkElement = getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+let container = null;
+
+beforeEach(() => {
+  container = document.createElement('div');
+  document.body.appendChild(container);
+});
+
+afterEach(() => {
+  unmountComponentAtNode(container);
+  container.remove();
+  container = null;
+});
+
+it('renders Form in App', () => {
+  act(() => {
+    render(<Form />, container);
+  });
+  expect(container.querySelector(`[data-testid='form']`)).toBeInTheDocument();
+});
+
+it('renders Impact section in App', () => {
+  act(() => {
+    render(<Impact />, container);
+  });
+  expect(container.querySelector(`[data-testid='impact']`)).toBeInTheDocument();
 });

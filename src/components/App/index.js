@@ -179,11 +179,12 @@ function App() {
       <div className={css.mapStyle}>
         {map}
         <div>
-          <Impact id={css.impact} count={trees.length} />
+          <Impact data-testid="impact" id={css.impact} count={trees.length} />
         </div>
       </div>
       <div className={css.treeEntryForm}>
         <Form
+          data-testid="form"
           currentLat={currentLat}
           currentLong={currentLong}
           getMyGeolocation={getMyGeolocation}
