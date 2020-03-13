@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Inter&display=swap');
+@import url("https://fonts.googleapis.com/css?family=Inter&display=swap");
 
 :root {
   --primary-color: #32a4dc;
@@ -16,22 +16,43 @@ html {
 
 body {
   margin: 0;
-  font-family: 'Inter', sans-serif;
+  font-family: "Inter", sans-serif;
   display: flex;
   flex-direction: row;
   justify-content: center;
 }
 
-.mapStyle {
-  display: flex;
-  grid-column: 2;
-  grid-row: 2;
+@media only screen and (min-width: 1000px) {
+  .mapStyle {
+    display: flex;
+    grid-column: 2;
+    grid-row: 2;
+  }
+
+  .leaflet-container {
+    height: 80vh;
+  }
 }
 
-.leaflet-container {
-  height: 80vh;
-  /* width: 39vw; */
+@media only screen and (min-width: 500px) and (max-width: 999px) {
+  .mapStyle {
+    display: flex;
+    grid-column: 2;
+    grid-row: 2;
+  }
+
+  .leaflet-container {
+    height: 80vh;
+  }
 }
 
-#impact {
+@media only screen and (max-width: 499px) {
+  .mapStyle {
+    grid-column: 2;
+    grid-row: 2;
+  }
+
+  .leaflet-container {
+    height: 80vh;
+  }
 }
