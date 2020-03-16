@@ -358,4 +358,3 @@ function Form({
 }
 
 export default Form;
-import { SERVER_URL } from '../../config';
