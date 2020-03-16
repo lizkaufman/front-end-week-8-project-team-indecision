@@ -9,6 +9,8 @@ import Button from '../Button';
 import FormPrivacyOptions from '../FormPrivacyOptions/index';
 import css from './Form.module.css';
 
+import { SERVER_URL } from '../../config';
+
 //------------PLAN-----------------------------
 
 //TODO: Wrap FormInputField components in a <form></form> tag and have onSubmit event tied to <button type="submit"></button> at end ✅
@@ -163,7 +165,7 @@ function Form({
     event.preventDefault();
     console.log(`You've pressed submit!`);
 
-    fetch('http://192.168.0.71:5000/users', {
+    fetch(`${SERVER_URL}/users`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -180,7 +182,7 @@ function Form({
         console.error('Error: Failed to fetch.');
       });
 
-    fetch('http://192.168.0.71:5000/trees', {
+    fetch(`${SERVER_URL}/trees`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -356,3 +358,4 @@ function Form({
 }
 
 export default Form;
+import { SERVER_URL } from '../../config';
